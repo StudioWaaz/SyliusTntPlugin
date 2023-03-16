@@ -48,7 +48,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "symfony/thanks": true
+            "symfony/thanks": true,
+            "symfony/flex": true
         }
     },
     "extra": {
