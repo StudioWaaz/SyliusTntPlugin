@@ -9,10 +9,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "bitbag/shipping-export-plugin": "dev-master",
+        "bitbag/shipping-export-plugin": "^2.0",
         "setono/sylius-pickup-point-plugin": "^1.1",
         "sylius/sylius": "^1.11",
-        "winzou/tnt-express": "dev-master"
+        "winzou/tnt-express": "^1.1.1"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
@@ -74,6 +74,5 @@
         "post-create-project-cmd": [
             "php bin/create_node_symlink.php"
         ]
-    },
-    "minimum-stability": "dev"
+    }
 }

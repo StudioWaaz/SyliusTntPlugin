@@ -1,4 +1,4 @@
-@managing_shipping_gateway_dhl24
+@managing_shipping_gateway_tnt
 Feature: Creating shipping gateway
     In order to export shipping data to external shipping provider service
     As an Administrator

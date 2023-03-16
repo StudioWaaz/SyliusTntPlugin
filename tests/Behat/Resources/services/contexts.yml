@@ -17,9 +17,9 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@sylius.behat.shared_storage'
 
-    # waaz.tnt_plugin.behat.context.ui.admin.shipping_export:
-    #     class: Tests\Waaz\SyliusTntPlugin\Behat\Context\Ui\Admin\ShippingExportContext
-    #     public: true
-    #     arguments:
-    #         - '@waaz.behat.page.admin.shipping_export.index'
-    #         - '@waaz.tnt_plugin.behat.mocker.dhl_api_mocker'
+    waaz.tnt_plugin.behat.context.ui.admin.shipping_export:
+        class: Tests\Waaz\SyliusTntPlugin\Behat\Context\Ui\Admin\ShippingExportContext
+        public: true
+        arguments:
+            - '@bitbag.behat.page.admin.shipping_export.index'
+            - '@waaz.tnt_plugin.behat.mocker.tnt_api_mocker'

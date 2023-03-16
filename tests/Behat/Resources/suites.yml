@@ -1,6 +1,6 @@
 default:
     suites:
-        managing_shipping_gateway_dhl24_pl:
+        managing_shipping_gateway_tnt:
             contexts:
                 - sylius.behat.context.hook.doctrine_orm
                 - bitbag.behat.context.hook.shipping_export
@@ -28,9 +28,9 @@ default:
 
                 - waaz.tnt_plugin.behat.context.ui.admin.shipping_gateway
             filters:
-                tags: "@managing_shipping_gateway_dhl24 && @ui"
+                tags: "@managing_shipping_gateway_tnt && @ui"
 
-        managing_shipping_export_dhl_24:
+        managing_shipping_export_tnt:
             contexts:
                 - sylius.behat.context.hook.doctrine_orm
                 - bitbag.behat.context.hook.shipping_export
@@ -55,10 +55,10 @@ default:
                 - sylius.behat.context.setup.shop_security
                 - bitbag.behat.context.setup.shipping_gateway
                 - bitbag.behat.context.setup.shipping_export
-                #- bitbag.dhl24_pl_shipping_export_plugin.behat.context.setup.shipping_gateway
+                - waaz.tnt_plugin.behat.context.setup.shipping_gateway
 
                 - bitbag.behat.context.ui.admin.shipping_gateway
                 - bitbag.behat.context.ui.admin.shipping_export
-                # - bitbag.dhl24_pl_shipping_export_plugin.behat.context.ui.admin.shipping_export
+                - waaz.tnt_plugin.behat.context.ui.admin.shipping_export
             filters:
-                tags: "@managing_shipping_export_dhl24 && @ui"
+                tags: "@managing_shipping_export_tnt && @ui"
