@@ -8,6 +8,14 @@
 
 <p align="center">Skeleton for starting Sylius plugins.</p>
 
+Testing commands 
+APP_ENV=test symfony php vendor/bin/behat
+- [ ] translations
+- [ ] rename plugin and namespace (export only)
+- [ ] force zipcode city to be paired on front
+- [ ] label format
+- [ ] dropoff stuff
+
 ## Documentation
 
 For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,

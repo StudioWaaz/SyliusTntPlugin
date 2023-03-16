@@ -4,25 +4,21 @@ services:
         tags:
             - { name: bitbag.shipping_gateway_configuration_type, type: 'tnt', label: "TNT" }
 
-    # waaz.tnt_plugin.api.shipping_label_fetcher:
-    #     class: Waaz\SyliusTntPlugin\Api\ShippingLabelFetcher
-    #     arguments:
-    #         - '@session.flash_bag'
-    #         - '@waaz.tnt_plugin.api.web_client'
-    #         - '@waaz.tnt_plugin.api.soap_client'
+    waaz.tnt_plugin.api.shipping_label_fetcher:
+        class: Waaz\SyliusTntPlugin\Api\ShippingLabelFetcher
+        arguments:
+            - '@session.flash_bag'
+            - '@waaz.tnt_plugin.api.client'
 
-    # waaz.tnt_plugin.event_listener.dhl_shipping_export:
-    #     class: Waaz\SyliusTntPlugin\EventListener\ShippingExportEventListener
-    #     arguments:
-    #         - '@filesystem'
-    #         - '@bitbag.repository.shipping_export'
-    #         - '%bitbag.shipping_labels_path%'
-    #         - '@waaz.tnt_plugin.api.shipping_label_fetcher'
-    #     tags:
-    #         - { name: kernel.event_listener, event: 'bitbag.shipping_export.export_shipment', method: exportShipment }
+    waaz.tnt_plugin.event_listener.tnt_shipping_export:
+        class: Waaz\SyliusTntPlugin\EventListener\ShippingExportEventListener
+        arguments:
+            - '@filesystem'
+            - '@bitbag.repository.shipping_export'
+            - '%bitbag.shipping_labels_path%'
+            - '@waaz.tnt_plugin.api.shipping_label_fetcher'
+        tags:
+            - { name: kernel.event_listener, event: 'bitbag.shipping_export.export_shipment', method: exportShipment }
 
-    # waaz.tnt_plugin.api.web_client:
-    #     class: Waaz\SyliusTntPlugin\Api\WebClient
-
-    # waaz.tnt_plugin.api.soap_client:
-    #     class: Waaz\SyliusTntPlugin\Api\SoapClient
+    waaz.tnt_plugin.api.client:
+        class: Waaz\SyliusTntPlugin\Api\Client

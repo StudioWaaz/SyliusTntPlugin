@@ -24,27 +24,12 @@ class ShippingExportEventListener
 {
     public const TNT_GATEWAY_CODE = 'tnt';
 
-    /** @var Filesystem */
-    private $filesystem;
-
-    /** @var ObjectManager */
-    private $shippingExportRepository;
-
-    /** @var string */
-    private $shippingLabelsPath;
-
-    private ShippingLabelFetcherInterface $shippingLabelFetcher;
-
     public function __construct(
-        Filesystem $filesystem,
-        ShippingExportRepository $shippingExportRepository,
-        string $shippingLabelsPath,
-        ShippingLabelFetcherInterface $shippingLabelFetcher
+        private Filesystem $filesystem,
+        private ShippingExportRepository $shippingExportRepository,
+        private string $shippingLabelsPath,
+        private ShippingLabelFetcherInterface $shippingLabelFetcher
     ) {
-        $this->filesystem = $filesystem;
-        $this->shippingExportRepository = $shippingExportRepository;
-        $this->shippingLabelsPath = $shippingLabelsPath;
-        $this->shippingLabelFetcher = $shippingLabelFetcher;
     }
 
     public function exportShipment(ResourceControllerEvent $event): void

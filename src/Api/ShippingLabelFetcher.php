@@ -4,60 +4,44 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\Api;
 
+use Waaz\SyliusTntPlugin\Api\Client;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class ShippingLabelFetcher implements ShippingLabelFetcherInterface
 {
-    /** @var WebClientInterface */
-    private $webClient;
-
-    /** @var SoapClientInterface */
-    private $soapClient;
-
-    private ?string $response = null;
-
-    private FlashBagInterface $flashBag;
-
     public function __construct(
-        FlashBagInterface $flashBag,
-        WebClientInterface $webClient,
-        SoapClientInterface $soapClient
+        private FlashBagInterface $flashBag,
+        private Client $client
     ) {
-        $this->flashBag = $flashBag;
-        $this->webClient = $webClient;
-        $this->soapClient = $soapClient;
     }
 
     public function createShipment($shippingGateway, $shipment): void
     {
         try {
-            $this->webClient->setShippingGateway($shippingGateway);
-            $this->webClient->setShipment($shipment);
-            $requestData = $this->webClient->getRequestData();
-
-            $this->response = $this->soapClient->createShipment($requestData, $shippingGateway->getConfigValue('wsdl'));
-        } catch (\SoapFault $exception) {
+            $this->client->setShippingGateway($shippingGateway);
+            $this->client->setShipment($shipment);
+            $this->response = $this->client->createExpedition();
+        } catch (\Exception $exception) {
             $this->flashBag->add(
                 'error',
                 sprintf(
-                    'DHL24 Web Service for #%s order: %s',
+                    'TNT Service for #%s order: %s',
                     $shipment->getOrder()->getNumber(),
                     $exception->getMessage()
                 )
             );
-
             return;
         }
     }
 
     public function getLabelContent(): ?string
     {
-        if (!isset($this->response->createShipmentResult)) {
+        if (!isset($this->response)) {
             return '';
         }
 
         $this->flashBag->add('success', 'bitbag.ui.shipment_data_has_been_exported'); // Add success notification
 
-        return base64_decode($this->response->createShipmentResult->label->labelContent);
+        return $this->response->getPDFLabels();
     }
 }

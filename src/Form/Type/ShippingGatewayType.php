@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Waaz\SyliusTntPlugin\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ShippingGatewayType extends AbstractType
 {
@@ -16,28 +17,49 @@ final class ShippingGatewayType extends AbstractType
         $builder
             ->add('login', TextType::class, [
                 'label' => 'waaz.ui.tnt_login',
+                'constraints' => [
+                    new NotBlank()
+                ]
             ])
             ->add('password', TextType::class, [
                 'label' => 'waaz.ui.tnt_password',
+                'constraints' => [
+                    new NotBlank()
+                ]
             ])
             ->add('account_number', TextType::class, [
-                'label' => 'waaz.ui.tnt_account_number'
+                'label' => 'waaz.ui.tnt_account_number',
+                'constraints' => [
+                    new NotBlank()
+                ]
             ])
             ->add('sender_name', TextType::class, [
-                'label' => 'waaz.ui.tnt_sender_name'
+                'label' => 'waaz.ui.tnt_sender_name',
+                'constraints' => [
+                    new NotBlank()
+                ]
             ])
             ->add('sender_address1', TextType::class, [
-                'label' => 'waaz.ui.tnt_sender_address1'
+                'label' => 'waaz.ui.tnt_sender_address1',
+                'constraints' => [
+                    new NotBlank()
+                ]
             ])
             ->add('sender_address2', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_address2',
                 'required' => false
             ])
             ->add('sender_city', TextType::class, [
-                'label' => 'waaz.ui.tnt_sender_city'
+                'label' => 'waaz.ui.tnt_sender_city',
+                'constraints' => [
+                    new NotBlank()
+                ]
             ])
             ->add('sender_zip_code', TextType::class, [
-                'label' => 'waaz.ui.tnt_sender_zip_code'
+                'label' => 'waaz.ui.tnt_sender_zip_code',
+                'constraints' => [
+                    new NotBlank()
+                ]
             ])
             ->add('sender_phone_number', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_phone_number',
