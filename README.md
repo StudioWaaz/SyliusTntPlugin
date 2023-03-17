@@ -15,6 +15,7 @@ APP_ENV=test symfony php vendor/bin/behat
 - [ ] force zipcode city to be paired on front
 - [ ] label format
 - [ ] dropoff stuff
+- [ ] configuration for using g/kg (g by default)
 
 ## Documentation
 
