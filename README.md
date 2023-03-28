@@ -12,10 +12,12 @@ Testing commands
 APP_ENV=test symfony php vendor/bin/behat
 - [ ] translations
 - [ ] rename plugin and namespace (export only)
-- [ ] force zipcode city to be paired on front
 - [ ] label format
 - [ ] dropoff stuff
 - [ ] configuration for using g/kg (g by default)
+- [ ] configuration default values
+- [ ] data-tnt-select-classes
+- [ ] validator
 
 ## Documentation
 

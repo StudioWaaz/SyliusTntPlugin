@@ -18,6 +18,10 @@ final class WaazSyliusTntExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
+        foreach ($config as $key => $value) {
+            $container->setParameter('waaz_sylius_tnt_plugin.'.$key, $value);
+        }
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $loader->load('services.yml');

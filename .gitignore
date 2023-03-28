@@ -13,3 +13,5 @@
 /phpunit.xml
 /.php-version
 Makefile
+php.ini
+/.vscode

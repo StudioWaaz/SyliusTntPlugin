@@ -29,11 +29,8 @@ class Client implements ClientInterface
 
     private ?ShipmentInterface $shipment = null;
 
-    private ExceptionManagerInterface $exceptionManager;
-
-    public function __construct()
+    public function __construct(private TNTClient $tntClient)
     {
-        $this->exceptionManager = new ExceptionManager();
     }
 
     public function setShippingGateway(ShippingGatewayInterface $shippingGateway): void
@@ -48,41 +45,23 @@ class Client implements ClientInterface
 
     public function createExpedition(): Expedition
     {
-        $tntClient = $this->init();
-
         $sender = $this->createSender();
         $receiver = $this->createReceiver();
 
-        $this->verifyAddresses([$receiver], $tntClient);
+        $this->verifyAddresses([$receiver]);
         $parcelRequest = $this->createParcelRequest();
 
         $expeditionRequest = $this->createExpeditionRequest($sender, $receiver, $parcelRequest);
-        $feasibility = $this->getFeasibility($expeditionRequest, $tntClient);
+        $feasibility = $this->getFeasibility($expeditionRequest);
 
         $expeditionRequest->setServiceCode($feasibility->getServiceCode());
         
-        return $tntClient->createExpedition($expeditionRequest);
-    }
-
-    private function init(): TNTClient
-    {
-        Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before initialization.');
-        Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before initialization.');
-
-        /** @var string */
-        $login = $this->shippingGateway->getConfigValue('login');
-        /** @var string */
-        $password = $this->shippingGateway->getConfigValue('password');
-
-        $builder = new SoapClientBuilder($login, $password);
-        $soapClient = $builder->createClient(true);
-
-        return new TNTClient($soapClient, $this->exceptionManager);
+        return $this->tntClient->createExpedition($expeditionRequest);
     }
 
     private function createSender(): Sender
     {
-        Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before initialization.');
+        Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before expedition creation.');
 
         $sender = new Sender();
         $sender->setName($this->shippingGateway->getConfigValue('sender_name'))
@@ -105,8 +84,8 @@ class Client implements ClientInterface
     {
         $receiver = new Receiver();
 
-        Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before initialization.');
-        Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before initialization.');
+        Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before expedition creation.');
+        Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before expedition creation.');
 
         /** @var OrderInterface */
         $order = $this->shipment->getOrder();
@@ -136,7 +115,7 @@ class Client implements ClientInterface
         $parcelRequest = new ParcelRequest;
         $parcelRequest->setSequenceNumber(1);
         
-        Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before initialization.');
+        Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before expedition creation.');
 
         $weight = $this->shipment->getShippingWeight()/1000;
         $parcelRequest->setWeight(sprintf("%.3f", $weight));
@@ -144,11 +123,11 @@ class Client implements ClientInterface
         return $parcelRequest;
     }
 
-    private function verifyAddresses(array $addresses, TNTClient $tntClient): void
+    private function verifyAddresses(array $addresses): void
     {
         foreach ($addresses as $address) {
             Assert::isInstanceOf($address, Address::class);
-            if (false === $tntClient->checkZipcodeCityMatch($address->getZipCode(), $address->getCity()))
+            if (false === $this->tntClient->checkZipcodeCityMatch($address->getZipCode(), $address->getCity()))
             {
                 throw new InvalidPairZipcodeCityException($address->getZipCode(), $address->getCity());
             }
@@ -157,7 +136,7 @@ class Client implements ClientInterface
 
     private function createExpeditionRequest(Sender $sender, Receiver $receiver, ParcelRequest $parcelRequest): ExpeditionRequest
     {
-        Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before initialization.');
+        Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before expedition creation.');
 
         $expeditionRequest = new ExpeditionRequest();
         $expeditionRequest->setShippingDate(new \Datetime());
@@ -171,13 +150,13 @@ class Client implements ClientInterface
     }
 
     /** Must be improved **/
-    private function getFeasibility(ExpeditionRequest $expeditionRequest, TNTClient $tntClient): Service
+    private function getFeasibility(ExpeditionRequest $expeditionRequest): Service
     {
         /** @var array $feasibility */
         $feasibility = [];
 
         try {
-            $feasibility = $tntClient->getFeasibility($expeditionRequest);
+            $feasibility = $this->tntClient->getFeasibility($expeditionRequest);
         } catch (\SoapFault $e) {
         }
 
