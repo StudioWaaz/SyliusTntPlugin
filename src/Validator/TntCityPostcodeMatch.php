@@ -7,12 +7,19 @@ namespace Waaz\SyliusTntExportPlugin\Validator;
 use Symfony\Component\Validator\Constraint;
 
 /**
+ * @Annotation
+ */
+/**
  * @psalm-suppress PropertyNotSetInConstructor
  */
-#[\Attribute]
 class TntCityPostcodeMatch extends Constraint
 {
     public string $cityAndPostcodeDoesNotMatchMessage = 'waaz.tnt_export_plugin.city_postcode_match.messages.invalid';
+
+    public function validatedBy(): string
+    {
+        return 'TntCityPostMatchConstraint';
+    }
 
     public function getTargets(): string
     {

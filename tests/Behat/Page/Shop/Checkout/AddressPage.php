@@ -34,6 +34,17 @@ class AddressPage extends BaseAddressPage {
         return $this->getOptionsFromSelect($this->getElement('billing_city_select'));
     }
 
+    public function selectBillingCity(string $city): void
+    {
+        $this->waitForOption(3, 'billing_city_select');
+        $this->getElement('billing_city_select')->selectOption($city);
+    }
+
+    public function fillBillingData(string $field, string $value): void
+    {
+        $this->getElement('billing_' . $field)->setValue($value);
+    }
+
     /**
      * @return string[]
      */
@@ -64,32 +75,7 @@ class AddressPage extends BaseAddressPage {
             'billing_postcode' => '[data-test-billing-postcode]',
             'billing_city' => '[data-test-billing-city]',
             'billing_city_select' => '#city-select-0',
-            // 'billing_address_book' => '[data-test-billing-address] [data-test-address-book]',
-            // 'billing_country_province' => '[data-test-billing-address] [data-test-province-code]',
-            // 'billing_first_name' => '[data-test-billing-first-name]',
-            // 'billing_last_name' => '[data-test-billing-last-name]',
-            // 'billing_province' => '[data-test-billing-address] [data-test-province-name]',
-            // 'billing_street' => '[data-test-billing-street]',
-            // 'checkout_subtotal' => '[data-test-checkout-subtotal]',
-            // 'customer_email' => '[data-test-login-email]',
-            // 'different_billing_address' => '[data-test-different-billing-address]',
-            // 'different_billing_address_label' => '[data-test-different-billing-address-label]',
-            // 'different_shipping_address' => '[data-test-different-shipping-address]',
-            // 'different_shipping_address_label' => '[data-test-different-shipping-address-label]',
-            // 'login_button' => '[data-test-login-button]',
-            // 'login_password' => '[data-test-password-input]',
-            // 'login_validation_error' => '[data-test-login-validation-error]',
-            // 'next_step' => '[data-test-next-step]',
-            // 'shipping_address' => '[data-test-shipping-address]',
-            // 'shipping_address_book' => '[data-test-shipping-address] [data-test-address-book]',
-            // 'shipping_city' => '[data-test-shipping-city]',
-            // 'shipping_country' => '[data-test-shipping-country]',
-            // 'shipping_country_province' => '[data-test-shipping-address] [data-test-province-code]',
-            // 'shipping_first_name' => '[data-test-shipping-first-name]',
-            // 'shipping_last_name' => '[data-test-shipping-last-name]',
-            // 'shipping_postcode' => '[data-test-shipping-postcode]',
-            // 'shipping_province' => '[data-test-shipping-address] [data-test-province-name]',
-            // 'shipping_street' => '[data-test-shipping-street]',
+            'billing_phone_number' => '#sylius_checkout_address_billingAddress_phoneNumber',
         ]);
     }
 }

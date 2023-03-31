@@ -1,0 +1,4 @@
+Sylius\Component\Addressing\Model\Address:
+    constraints:
+        - Waaz\SyliusTntExportPlugin\Validator\TntCityPostcodeMatch:
+            groups: ['tnt_address']

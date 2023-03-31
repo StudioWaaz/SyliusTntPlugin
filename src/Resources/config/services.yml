@@ -58,3 +58,10 @@ services:
             - '@router'
         tags:
             - { name: 'form.type_extension' }
+    
+    waaz.tnt_export_plugin.validator.city_postcode_match:
+        class: Waaz\SyliusTntExportPlugin\Validator\TntCityPostcodeMatchValidator
+        arguments:
+            - '@winzou.tnt.client'
+        tags:
+            - { name: 'validator.constraint_validator', alias: 'TntCityPostMatchConstraint' }

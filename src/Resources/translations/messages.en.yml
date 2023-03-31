@@ -1,6 +1,6 @@
 waaz:
     ui:
-        tnt_account_number: 'TNT account number'
+        tnt_account_number: 'Account number'
         tnt_sender_name: 'Sender name'
         tnt_sender_address1: 'Sender address'
         tnt_sender_address2: 'Sender address 2'

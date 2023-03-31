@@ -20,8 +20,8 @@ APP_ENV=test symfony php vendor/bin/behat
 - [ ] configuration for using g/kg (g by default)
 - [ ] data-tnt-select-classes
 - [ ] WIP behat js
-  - [ ] validator
-  - [ ] data is copied
+  - [ ] validator // BUG group & valid & constraint class
+  - [x] data is copied
 - [ ] complete phpspec
 
 ## Documentation
@@ -126,3 +126,15 @@ To be able to setup a plugin's database, remember to configure you database cred
     (cd tests/Application && APP_ENV=dev bin/console sylius:fixtures:load)
     (cd tests/Application && APP_ENV=dev bin/console server:run -d public)
     ```
+
+
+Install steps : 
+config plugin
+routing => 
+config => 
+sylius.form.type.checkout_address.validation_groups: ['sylius', 'tnt_address']
+
+IDEA 1 pass root validation to root
+$builder->add("test", NestedForm::class, [
+            "validation_groups" => $options["validation_groups"],
+        ]);
