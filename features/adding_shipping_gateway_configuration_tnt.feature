@@ -13,8 +13,6 @@ Feature: Creating shipping gateway
     Scenario: Creating TNT shipping gateway
         When I visit the create shipping gateway configuration page for "tnt"
         And I select the "TNT" shipping method
-        And I fill the "login" field with "mylogin"
-        And I fill the "password" field with "mypassord"
         And I fill the "account_number" field with "123"
         And I fill the "sender_name" field with "Waaz"
         And I fill the "sender_address1" field with "Allée d'Aguiléra"

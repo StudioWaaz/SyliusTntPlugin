@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntPlugin\Validator;
+namespace Waaz\SyliusTntExportPlugin\Validator;
 
 use Sylius\Component\Core\Model\Address;
 use TNTExpress\Client\TNTClientInterface;

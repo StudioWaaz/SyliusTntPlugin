@@ -10,13 +10,13 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntPlugin\EventListener;
+namespace Waaz\SyliusTntExportPlugin\EventListener;
 
 use Webmozart\Assert\Assert;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Sylius\Component\Core\Model\ShipmentInterface;
-use Waaz\SyliusTntPlugin\Api\ShippingLabelFetcherInterface;
+use Waaz\SyliusTntExportPlugin\Api\ShippingLabelFetcherInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingExportInterface;
 use BitBag\SyliusShippingExportPlugin\Repository\ShippingExportRepository;

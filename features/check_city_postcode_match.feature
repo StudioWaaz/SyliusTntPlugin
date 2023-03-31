@@ -20,3 +20,11 @@ Feature: Checking postcode and zipcode match
         And I specify billing country as "France"
         And I specify billing postcode as "64200"
         Then I should have "Biarritz" city available to choose from
+
+    @ui @javascript
+    Scenario: City field is converted to select and show cities
+        Given I added product "PHP T-Shirt" to the cart
+        And I am at the checkout addressing step
+        And I specify billing country as "France"
+        And I specify billing postcode as "64200"
+        Then I should have "Biarritz" city available to choose from

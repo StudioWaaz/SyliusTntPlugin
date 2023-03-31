@@ -10,14 +10,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Waaz\SyliusTntPlugin\Behat\Context\Ui\Admin;
+namespace Tests\Waaz\SyliusTntExportPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Sylius\Behat\Service\Resolver\CurrentPageResolverInterface;
-use Tests\Waaz\SyliusTntPlugin\Behat\Page\Admin\ShippingGateway\CreatePageInterface;
+use Tests\Waaz\SyliusTntExportPlugin\Behat\Page\Admin\ShippingGateway\CreatePageInterface;
 use Tests\BitBag\SyliusShippingExportPlugin\Behat\Behaviour\ContainsError;
 use Webmozart\Assert\Assert;
 

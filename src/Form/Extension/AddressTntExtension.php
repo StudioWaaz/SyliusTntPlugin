@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntPlugin\Form\Extension;
+namespace Waaz\SyliusTntExportPlugin\Form\Extension;
 
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +23,7 @@ final class AddressTntExtension extends AbstractTypeExtension
             ->add('city', TextType::class, [
                 'label' => 'sylius.form.address.city',
                 'attr' => [
-                    'data-tnt-url' => $this->router->generate('waaz_tnt_plugin_city_choices_by_zip_code', ['postcode' =>'xxxxx']),
+                    'data-tnt-url' => $this->router->generate('waaz_tnt_export_plugin_city_choices_by_zip_code', ['postcode' =>'xxxxx']),
                     'data-tnt-select-classes' => 'ui dropdown'
                 ]
             ])

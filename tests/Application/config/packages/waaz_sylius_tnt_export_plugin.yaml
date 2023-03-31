@@ -1,4 +1,4 @@
-waaz_sylius_tnt:
+waaz_sylius_tnt_export:
     username: 'login'
     password: 'password'
     sandbox: true

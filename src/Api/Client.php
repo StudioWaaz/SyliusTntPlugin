@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntPlugin\Api;
+namespace Waaz\SyliusTntExportPlugin\Api;
 
 use TNTExpress\Model\Sender;
 use Webmozart\Assert\Assert;

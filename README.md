@@ -10,14 +10,19 @@
 
 Testing commands 
 APP_ENV=test symfony php vendor/bin/behat
-- [ ] translations
-- [ ] rename plugin and namespace (export only)
+- [x] translations
+- [x] rename plugin and namespace (export only)
+
+
 - [ ] label format
 - [ ] dropoff stuff
-- [ ] configuration for using g/kg (g by default)
 - [ ] configuration default values
+- [ ] configuration for using g/kg (g by default)
 - [ ] data-tnt-select-classes
-- [ ] validator
+- [ ] WIP behat js
+  - [ ] validator
+  - [ ] data is copied
+- [ ] complete phpspec
 
 ## Documentation
 
