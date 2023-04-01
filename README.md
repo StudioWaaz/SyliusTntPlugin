@@ -21,6 +21,7 @@ APP_ENV=test symfony php vendor/bin/behat
 - [ ] data-tnt-select-classes
 - [x] behat js
 - [ ] complete phpspec
+- [ ] README
 
 ## Documentation
 

@@ -145,7 +145,7 @@ class Client implements ClientInterface
         Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before expedition creation.');
 
         $expeditionRequest = new ExpeditionRequest();
-        $expeditionRequest->setShippingDate(new \Datetime());
+        $expeditionRequest->setShippingDate(new \DateTime());
         $expeditionRequest->setAccountNumber($this->shippingGateway->getConfigValue('account_number'));
         $expeditionRequest->setSender($sender);
         $expeditionRequest->setReceiver($receiver);
