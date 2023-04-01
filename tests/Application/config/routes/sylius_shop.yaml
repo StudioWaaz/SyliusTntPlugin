@@ -14,4 +14,4 @@ sylius_shop_default_locale:
         _controller: sylius.controller.shop.locale_switch:switchAction
 
 waaz_tnt_shop:
-    resource: "@WaazSyliusTntExportPlugin/Resources/config/routing/shop_tnt.yaml"
+    resource: "@WaazSyliusTntPlugin/Resources/config/routing/shop_tnt.yaml"

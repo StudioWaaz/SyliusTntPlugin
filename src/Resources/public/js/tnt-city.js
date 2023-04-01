@@ -37,6 +37,7 @@ const tnt = {
         select.innerHTML = '';
         select.disabled = true;
         if (cities.length > 0) {
+            select.innerHTML += `<option value=""></option>`
             const input = this.cityInputs[key];
             cities.forEach((cityName) => {
                 if (input.value === cityName) {

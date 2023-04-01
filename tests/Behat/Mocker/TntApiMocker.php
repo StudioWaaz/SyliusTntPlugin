@@ -10,9 +10,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Waaz\SyliusTntExportPlugin\Behat\Mocker;
+namespace Tests\Waaz\SyliusTntPlugin\Behat\Mocker;
 
-use Waaz\SyliusTntExportPlugin\Api\SoapClientInterface;
+use Waaz\SyliusTntPlugin\Api\SoapClientInterface;
 use Sylius\Behat\Service\Mocker\MockerInterface;
 
 class TntApiMocker
@@ -46,7 +46,7 @@ class TntApiMocker
         $this
             ->mocker
             ->mockService(
-                'waaz.tnt_export_plugin.api.soap_client',
+                'waaz.tnt_plugin.api.soap_client',
                 SoapClientInterface::class
             )
             ->shouldReceive('createShipment')

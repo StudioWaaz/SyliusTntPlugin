@@ -11,7 +11,7 @@
 Testing commands 
 APP_ENV=test symfony php vendor/bin/behat
 - [x] translations
-- [x] rename plugin and namespace (export only)
+- [ ] renaming cancel
 
 
 - [ ] label format
@@ -19,9 +19,7 @@ APP_ENV=test symfony php vendor/bin/behat
 - [ ] configuration default values
 - [ ] configuration for using g/kg (g by default)
 - [ ] data-tnt-select-classes
-- [ ] WIP behat js
-  - [ ] validator // BUG group & valid & constraint class
-  - [x] data is copied
+- [x] behat js
 - [ ] complete phpspec
 
 ## Documentation
@@ -133,8 +131,3 @@ config plugin
 routing => 
 config => 
 sylius.form.type.checkout_address.validation_groups: ['sylius', 'tnt_address']
-
-IDEA 1 pass root validation to root
-$builder->add("test", NestedForm::class, [
-            "validation_groups" => $options["validation_groups"],
-        ]);

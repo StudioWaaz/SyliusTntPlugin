@@ -26,7 +26,7 @@ default:
                 - bitbag.behat.context.setup.shipping_gateway
                 - bitbag.behat.context.setup.shipping_export
 
-                - waaz.tnt_export_plugin.behat.context.ui.admin.shipping_gateway
+                - waaz.tnt_plugin.behat.context.ui.admin.shipping_gateway
             filters:
                 tags: "@managing_shipping_gateway_tnt && @ui"
 
@@ -55,11 +55,11 @@ default:
                 - sylius.behat.context.setup.shop_security
                 - bitbag.behat.context.setup.shipping_gateway
                 - bitbag.behat.context.setup.shipping_export
-                - waaz.tnt_export_plugin.behat.context.setup.shipping_gateway
+                - waaz.tnt_plugin.behat.context.setup.shipping_gateway
 
                 - bitbag.behat.context.ui.admin.shipping_gateway
                 - bitbag.behat.context.ui.admin.shipping_export
-                - waaz.tnt_export_plugin.behat.context.ui.admin.shipping_export
+                - waaz.tnt_plugin.behat.context.ui.admin.shipping_export
             filters:
                 tags: "@managing_shipping_export_tnt && @ui"
 
@@ -98,6 +98,6 @@ default:
                 - sylius.behat.context.ui.shop.checkout.addressing
                 - sylius.behat.context.ui.shop.checkout.shipping
                 - sylius.behat.context.ui.user
-                - waaz.tnt_export_plugin.behat.context.ui.shop.shipping_address
+                - waaz.tnt_plugin.behat.context.ui.shop.shipping_address
             filters:
                 tags: "@managing_postcode_zipcode && @ui"

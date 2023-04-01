@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntExportPlugin\Api;
+namespace Waaz\SyliusTntPlugin\Api;
 
 use Webmozart\Assert\Assert;
 use TNTExpress\Model\Expedition;
-use Waaz\SyliusTntExportPlugin\Api\Client;
+use Waaz\SyliusTntPlugin\Api\Client;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;

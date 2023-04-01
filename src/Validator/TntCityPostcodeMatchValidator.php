@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntExportPlugin\Validator;
+namespace Waaz\SyliusTntPlugin\Validator;
 
 use Sylius\Component\Core\Model\Address;
 use TNTExpress\Client\TNTClientInterface;
@@ -34,7 +34,7 @@ class TntCityPostcodeMatchValidator extends ConstraintValidator
             throw new UnexpectedValueException($constraint, TntCityPostcodeMatch::class);
         }
 
-        if ($value->getCountryCode() != 'fr') {
+        if ($value->getCountryCode() != 'FR') {
             return;
         }
 

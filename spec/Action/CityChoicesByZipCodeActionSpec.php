@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Waaz\SyliusTntExportPlugin\Action;
+namespace spec\Waaz\SyliusTntPlugin\Action;
 
 use TNTExpress\Model\City;
 use PhpSpec\ObjectBehavior;
@@ -9,7 +9,7 @@ use TNTExpress\Client\TNTClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Response;
-use Waaz\SyliusTntExportPlugin\Action\CityChoicesByZipCodeAction;
+use Waaz\SyliusTntPlugin\Action\CityChoicesByZipCodeAction;
 
 class CityChoicesByZipCodeActionSpec extends ObjectBehavior
 {

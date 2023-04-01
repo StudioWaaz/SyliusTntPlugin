@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntExportPlugin\Api;
+namespace Waaz\SyliusTntPlugin\Api;
 
 use TNTExpress\Model\Expedition;
 use Sylius\Component\Core\Model\ShipmentInterface;

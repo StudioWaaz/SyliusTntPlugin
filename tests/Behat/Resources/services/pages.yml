@@ -1,6 +1,6 @@
 services:
-    waaz.tnt_export_plugin.behat.page.admin.shipping_gateway.create:
-        class: Tests\Waaz\SyliusTntExportPlugin\Behat\Page\Admin\ShippingGateway\CreatePage
+    waaz.tnt_plugin.behat.page.admin.shipping_gateway.create:
+        class: Tests\Waaz\SyliusTntPlugin\Behat\Page\Admin\ShippingGateway\CreatePage
         parent: sylius.behat.page.admin.crud.create
         public: false
         arguments:

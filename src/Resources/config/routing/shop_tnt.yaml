@@ -1,5 +1,5 @@
-waaz_tnt_export_plugin_city_choices_by_zip_code:
+waaz_tnt_plugin_city_choices_by_zip_code:
     path: /tnt/cities/{postcode}
     methods: [GET]
     defaults:
-        _controller: waaz.tnt_export_plugin.action.city_choices_by_zip_code
+        _controller: waaz.tnt_plugin.action.city_choices_by_zip_code

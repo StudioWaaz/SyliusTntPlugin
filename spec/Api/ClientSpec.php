@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace spec\Waaz\SyliusTntExportPlugin\Api;
+namespace spec\Waaz\SyliusTntPlugin\Api;
 
 use PhpSpec\ObjectBehavior;
 use TNTExpress\Model\Service;
 use TNTExpress\Client\TNTClient;
 use TNTExpress\Model\Expedition;
-use Waaz\SyliusTntExportPlugin\Api\Client;
+use Waaz\SyliusTntPlugin\Api\Client;
 use TNTExpress\Model\ExpeditionRequest;
 use TNTExpress\Client\TNTClientInterface;
-use Waaz\SyliusTntExportPlugin\Api\ClientInterface;
+use Waaz\SyliusTntPlugin\Api\ClientInterface;
 use Webmozart\Assert\InvalidArgumentException;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\AddressInterface;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntExportPlugin\DependencyInjection;
+namespace Waaz\SyliusTntPlugin\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -15,7 +15,7 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('waaz_sylius_tnt_export');
+        $treeBuilder = new TreeBuilder('waaz_sylius_tnt');
         $rootNode = $treeBuilder->getRootNode();
         $this->addGlobalSection($rootNode);
 

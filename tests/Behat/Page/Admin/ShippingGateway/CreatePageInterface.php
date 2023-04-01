@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Waaz\SyliusTntExportPlugin\Behat\Page\Admin\ShippingGateway;
+namespace Tests\Waaz\SyliusTntPlugin\Behat\Page\Admin\ShippingGateway;
 
 use Sylius\Behat\Page\Admin\Crud\CreatePageInterface as BaseCreatePageInterface;
 

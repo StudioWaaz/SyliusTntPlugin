@@ -10,10 +10,10 @@
 
 declare(strict_types=1);
 
-namespace spec\Waaz\SyliusTntExportPlugin\EventListener;
+namespace spec\Waaz\SyliusTntPlugin\EventListener;
 
-use Waaz\SyliusTntExportPlugin\Api\ShippingLabelFetcherInterface;
-use Waaz\SyliusTntExportPlugin\EventListener\ShippingExportEventListener;
+use Waaz\SyliusTntPlugin\Api\ShippingLabelFetcherInterface;
+use Waaz\SyliusTntPlugin\EventListener\ShippingExportEventListener;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingExportInterface;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
 use BitBag\SyliusShippingExportPlugin\Repository\ShippingExportRepository;

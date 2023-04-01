@@ -61,8 +61,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Waaz\\SyliusTntExportPlugin\\": "src/",
-            "Tests\\Waaz\\SyliusTntExportPlugin\\": "tests/"
+            "Waaz\\SyliusTntPlugin\\": "src/",
+            "Tests\\Waaz\\SyliusTntPlugin\\": "tests/"
         }
     },
     "autoload-dev": {

@@ -25,7 +25,3 @@ waaz:
             thermal_no_logo: 'Thermique, Pas de logo'
             thermal_rotate_180: 'Thermique, Rotation de 180°'
             thermal_no_logo_rotate_180: 'Thermique, Pas de logo, Rotation de 180°'
-    tnt_export_plugin:
-        city_postcode_match:
-            messages:
-                invalid: 'La ville et le code postal ne correspondent pas'

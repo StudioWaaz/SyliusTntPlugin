@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntExportPlugin\Validator;
+namespace Waaz\SyliusTntPlugin\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class TntCityPostcodeMatch extends Constraint
 {
-    public string $cityAndPostcodeDoesNotMatchMessage = 'waaz.tnt_export_plugin.city_postcode_match.messages.invalid';
+    public string $cityAndPostcodeDoesNotMatchMessage = 'waaz.tnt_plugin.city_postcode_match.messages.invalid';
 
     public function validatedBy(): string
     {

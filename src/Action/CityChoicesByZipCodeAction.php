@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Waaz\SyliusTntExportPlugin\Action;
+namespace Waaz\SyliusTntPlugin\Action;
 
 use TNTExpress\Model\City;
 use FOS\RestBundle\View\View;

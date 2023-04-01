@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Waaz\SyliusTntExportPlugin\Behat\Context\Ui\Shop;
+namespace Tests\Waaz\SyliusTntPlugin\Behat\Context\Ui\Shop;
 
 use Webmozart\Assert\Assert;
 use Behat\Behat\Context\Context;
@@ -101,6 +101,6 @@ final class ShippingAddressContext implements Context
      */
     public function iShouldBeNotifiedThatTheCityDoesNotMatchThePostcode(): void
     {
-        Assert::true($this->addressPage->hasValidationErrorWith('city', 'sylius.address.city.not_match_postcode'));
+        Assert::true($this->addressPage->checkValidationMessageFor('billing_city', 'City and postal code do not match'));
     }
 }
