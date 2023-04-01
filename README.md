@@ -11,13 +11,13 @@
 Testing commands 
 APP_ENV=test symfony php vendor/bin/behat
 - [x] translations
-- [ ] renaming cancel
+- [x] renaming cancel
 
 
 - [ ] label format
 - [ ] dropoff stuff
-- [ ] configuration default values
-- [ ] configuration for using g/kg (g by default)
+- [x] configuration default values
+- [x] configuration for using g/kg (g by default)
 - [ ] data-tnt-select-classes
 - [x] behat js
 - [ ] complete phpspec

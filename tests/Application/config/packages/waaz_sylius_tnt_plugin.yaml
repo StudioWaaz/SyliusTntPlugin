@@ -1,4 +1,4 @@
-waaz_sylius_tnt:
-    username: 'login'
-    password: 'password'
-    sandbox: true
+# waaz_sylius_tnt:
+#     username: 'login'
+#     password: 'password'
+#     sandbox: true

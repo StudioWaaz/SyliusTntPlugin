@@ -30,6 +30,7 @@ services:
         class: Waaz\SyliusTntPlugin\Api\Client
         arguments:
             - '@winzou.tnt.client'
+            - '%waaz_sylius_tnt_plugin.weightUnit'
 
     winzou.tnt.soap_client_builder:
         class: TNTExpress\Client\SoapClientBuilder

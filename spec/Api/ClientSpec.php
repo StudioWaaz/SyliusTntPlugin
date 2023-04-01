@@ -25,7 +25,7 @@ class ClientSpec extends ObjectBehavior
 {
     function let(TNTClient $client): void
     {
-        $this->beConstructedWith($client);
+        $this->beConstructedWith($client, 'g');
     }
 
     function it_is_initializable(): void

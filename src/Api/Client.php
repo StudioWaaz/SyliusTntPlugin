@@ -29,7 +29,7 @@ class Client implements ClientInterface
 
     private ?ShipmentInterface $shipment = null;
 
-    public function __construct(private TNTClient $tntClient)
+    public function __construct(private TNTClient $tntClient, private string $weightUnit)
     {
     }
 
@@ -117,7 +117,13 @@ class Client implements ClientInterface
         
         Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before expedition creation.');
 
+        // get bundle config value for weightUnit
         $weight = $this->shipment->getShippingWeight()/1000;
+
+        if ($this->weightUnit === 'g') {
+            $weight = $weight / 1000;
+        }
+
         $parcelRequest->setWeight(sprintf("%.3f", $weight));
 
         return $parcelRequest;
