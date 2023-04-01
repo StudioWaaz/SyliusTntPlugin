@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Waaz\SyliusTntPlugin\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ShippingGatewayType extends AbstractType
 {
@@ -18,56 +18,56 @@ final class ShippingGatewayType extends AbstractType
             ->add('account_number', TextType::class, [
                 'label' => 'waaz.ui.tnt_account_number',
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             ->add('sender_name', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_name',
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             ->add('sender_address1', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_address1',
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             ->add('sender_address2', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_address2',
-                'required' => false
+                'required' => false,
             ])
             ->add('sender_city', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_city',
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             ->add('sender_zip_code', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_zip_code',
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             ->add('sender_phone_number', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_phone_number',
-                'required' => false
+                'required' => false,
             ])
             ->add('sender_contact_first_name', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_contact_first_name',
-                'required' => false
+                'required' => false,
             ])
             ->add('sender_contact_last_name', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_contact_last_name',
-                'required' => false
+                'required' => false,
             ])
             ->add('sender_email_address', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_email_address',
-                'required' => false
+                'required' => false,
             ])
             ->add('sender_fax_number', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_fax_number',
-                'required' => false
+                'required' => false,
             ])
             ->add('sender_type', ChoiceType::class, [
                 'label' => 'waaz.ui.tnt_sender_type',
@@ -76,7 +76,7 @@ final class ShippingGatewayType extends AbstractType
                     'waaz.ui.tnt.enterprise' => 'ENTERPRISE',
                     'waaz.ui.tnt.depot' => 'DEPOT',
                 ],
-                'data' => 'ENTERPRISE'
+                'data' => 'ENTERPRISE',
             ])
             ->add('receiver_type', ChoiceType::class, [
                 'label' => 'waaz.ui.tnt_receiver_type',
@@ -87,7 +87,7 @@ final class ShippingGatewayType extends AbstractType
                     'waaz.ui.tnt.drop_off_point' => 'DROPOFFPOINT',
                     'waaz.ui.tnt.individual' => 'INDIVIDUAL',
                 ],
-                'data' => 'INDIVIDUAL'
+                'data' => 'INDIVIDUAL',
             ])
             ->add('label_format', ChoiceType::class, [
                 'label' => 'waaz.ui.tnt_label_format',
@@ -99,7 +99,7 @@ final class ShippingGatewayType extends AbstractType
                     'waaz.ui.tnt_label.thermal_rotate_180' => 'THERMAL,ROTATE_180',
                     'waaz.ui.tnt_label.thermal_no_logo_rotate_180' => 'THERMAL,NO_LOGO,ROTATE_180',
                 ],
-                'data' => 'STDA4'
+                'data' => 'STDA4',
             ])
         ;
     }

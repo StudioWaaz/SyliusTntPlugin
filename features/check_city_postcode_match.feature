@@ -47,5 +47,4 @@ Feature: Checking postcode and zipcode match
         And I specify billing country as "France"
         And I specify billing postcode as "64200"
         And I try to complete the addressing step
-        #Then I should be on the checkout addressing step
         Then I should be notified that the city does not match the postcode

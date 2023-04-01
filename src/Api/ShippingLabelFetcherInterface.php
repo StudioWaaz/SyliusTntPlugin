@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\Api;
 
-use Sylius\Component\Core\Model\ShipmentInterface;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
 
 interface ShippingLabelFetcherInterface
 {

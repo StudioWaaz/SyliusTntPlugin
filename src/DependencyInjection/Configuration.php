@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 final class Configuration implements ConfigurationInterface
 {
@@ -22,7 +22,7 @@ final class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    protected function addGlobalSection(ArrayNodeDefinition $node): void
+    private function addGlobalSection(ArrayNodeDefinition $node): void
     {
         $node
             ->children()

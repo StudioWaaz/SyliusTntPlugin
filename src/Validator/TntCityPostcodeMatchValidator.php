@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\Validator;
 
-use Sylius\Component\Core\Model\Address;
-use TNTExpress\Client\TNTClientInterface;
-use TNTExpress\Exception\ClientException;
+use Sylius\Component\Addressing\Model\AddressInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Sylius\Component\Addressing\Model\AddressInterface;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
+use TNTExpress\Client\TNTClientInterface;
+use TNTExpress\Exception\ClientException;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -18,9 +17,10 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 class TntCityPostcodeMatchValidator extends ConstraintValidator
 {
     public function __construct(
-        private TNTClientInterface $tntClient
-    ) {}
-    
+        private TNTClientInterface $tntClient,
+    ) {
+    }
+
     /**
      * @param mixed $value
      */
@@ -41,8 +41,7 @@ class TntCityPostcodeMatchValidator extends ConstraintValidator
         $postcode = $value->getPostcode();
         $city = $value->getCity();
 
-
-        if (false === is_null($postcode) && false === is_null($city)) {
+        if (false === (null === $postcode) && false === (null === $city)) {
             try {
                 $result = $this->tntClient->getCitiesGuide($postcode);
                 foreach ($result as $tntCity) {
@@ -54,10 +53,11 @@ class TntCityPostcodeMatchValidator extends ConstraintValidator
             } catch (ClientException $e) {
             }
         }
-        
+
         $this->context
             ->buildViolation($constraint->cityAndPostcodeDoesNotMatchMessage)
             ->atPath('city')
-            ->addViolation();
+            ->addViolation()
+        ;
     }
 }

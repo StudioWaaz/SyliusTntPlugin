@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\EventListener;
 
-use Webmozart\Assert\Assert;
-use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Filesystem\Filesystem;
-use Sylius\Component\Core\Model\ShipmentInterface;
-use Waaz\SyliusTntPlugin\Api\ShippingLabelFetcherInterface;
-use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingExportInterface;
 use BitBag\SyliusShippingExportPlugin\Repository\ShippingExportRepository;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
+use Sylius\Component\Core\Model\ShipmentInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Waaz\SyliusTntPlugin\Api\ShippingLabelFetcherInterface;
+use Webmozart\Assert\Assert;
 
 class ShippingExportEventListener
 {
@@ -21,7 +20,7 @@ class ShippingExportEventListener
         private Filesystem $filesystem,
         private ShippingExportRepository $shippingExportRepository,
         private string $shippingLabelsPath,
-        private ShippingLabelFetcherInterface $shippingLabelFetcher
+        private ShippingLabelFetcherInterface $shippingLabelFetcher,
     ) {
     }
 
@@ -52,7 +51,7 @@ class ShippingExportEventListener
     public function saveShippingLabel(
         ShippingExportInterface $shippingExport,
         string $labelContent,
-        string $labelExtension
+        string $labelExtension,
     ): void {
         $labelPath = $this->shippingLabelsPath
             . '/' . $this->getFilename($shippingExport)
@@ -72,10 +71,10 @@ class ShippingExportEventListener
         $order = $shipment->getOrder();
         Assert::notNull($order);
 
-        /** @var string */
+        /** @var string $orderNumber */
         $orderNumber = $order->getNumber();
 
-        /** @var int */
+        /** @var int $shipmentId */
         $shipmentId = $shipment->getId();
 
         return implode(
@@ -83,7 +82,7 @@ class ShippingExportEventListener
             [
                 $shipmentId,
                 preg_replace('~[^A-Za-z0-9]~', '', $orderNumber),
-            ]
+            ],
         );
     }
 

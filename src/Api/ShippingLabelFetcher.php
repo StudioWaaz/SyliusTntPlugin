@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\Api;
 
-use Webmozart\Assert\Assert;
-use TNTExpress\Model\Expedition;
-use Waaz\SyliusTntPlugin\Api\Client;
-use Sylius\Component\Order\Model\OrderInterface;
-use Sylius\Component\Core\Model\ShipmentInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
+use Sylius\Component\Core\Model\ShipmentInterface;
+use Sylius\Component\Order\Model\OrderInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use TNTExpress\Model\Expedition;
+use Webmozart\Assert\Assert;
 
 class ShippingLabelFetcher implements ShippingLabelFetcherInterface
 {
@@ -18,32 +17,30 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
 
     public function __construct(
         private FlashBagInterface $flashBag,
-        private Client $client
+        private Client $client,
     ) {
     }
-    
+
     public function createShipment(ShippingGatewayInterface $shippingGateway, ShipmentInterface $shipment): void
     {
         try {
             $this->client->setShippingGateway($shippingGateway);
             $this->client->setShipment($shipment);
             $this->response = $this->client->createExpedition();
-
         } catch (\Exception $exception) {
             $order = $shipment->getOrder();
             Assert::isInstanceOf($order, OrderInterface::class);
-            
-            /** @var string */
-            $number = $order->getNumber();
 
+            /** @var string $number */
+            $number = $order->getNumber();
 
             $this->flashBag->add(
                 'error',
                 sprintf(
                     'TNT Service for #%s order: %s',
                     $number,
-                    $exception->getMessage()
-                )
+                    $exception->getMessage(),
+                ),
             );
         }
     }

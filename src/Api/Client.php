@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\Api;
 
-use TNTExpress\Model\Sender;
-use Webmozart\Assert\Assert;
-use TNTExpress\Model\Address;
-use TNTExpress\Model\Service;
-use TNTExpress\Model\Receiver;
-use TNTExpress\Client\TNTClient;
-use TNTExpress\Model\Expedition;
-use TNTExpress\Model\ParcelRequest;
-use TNTExpress\Model\ExpeditionRequest;
-use TNTExpress\Client\SoapClientBuilder;
-use TNTExpress\Exception\ExceptionManager;
-use Sylius\Component\Core\Model\OrderInterface;
+use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
-use TNTExpress\Exception\ExceptionManagerInterface;
+use TNTExpress\Client\TNTClient;
 use TNTExpress\Exception\InvalidPairZipcodeCityException;
-use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
+use TNTExpress\Model\Address;
+use TNTExpress\Model\Expedition;
+use TNTExpress\Model\ExpeditionRequest;
+use TNTExpress\Model\ParcelRequest;
+use TNTExpress\Model\Receiver;
+use TNTExpress\Model\Sender;
+use TNTExpress\Model\Service;
+use Webmozart\Assert\Assert;
 
 class Client implements ClientInterface
 {
@@ -55,7 +52,7 @@ class Client implements ClientInterface
         $feasibility = $this->getFeasibility($expeditionRequest);
 
         $expeditionRequest->setServiceCode($feasibility->getServiceCode());
-        
+
         return $this->tntClient->createExpedition($expeditionRequest);
     }
 
@@ -76,7 +73,7 @@ class Client implements ClientInterface
             ->setFaxNumber($this->shippingGateway->getConfigValue('sender_fax_number'))
             ->setType($this->shippingGateway->getConfigValue('sender_type'))
         ;
-        
+
         return $sender;
     }
 
@@ -87,15 +84,15 @@ class Client implements ClientInterface
         Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before expedition creation.');
         Assert::isInstanceOf($this->shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before expedition creation.');
 
-        /** @var OrderInterface */
+        /** @var OrderInterface $order */
         $order = $this->shipment->getOrder();
 
-        /** @var AddressInterface */
+        /** @var AddressInterface $address */
         $address = $order->getShippingAddress();
 
-        /** @var CustomerInterface */
+        /** @var CustomerInterface $customer */
         $customer = $order->getCustomer();
-        
+
         $receiver->setContactFirstName($address->getFirstName())
             ->setContactLastName($address->getLastName())
             ->setPhoneNumber($address->getPhoneNumber())
@@ -112,19 +109,19 @@ class Client implements ClientInterface
 
     private function createParcelRequest(): ParcelRequest
     {
-        $parcelRequest = new ParcelRequest;
+        $parcelRequest = new ParcelRequest();
         $parcelRequest->setSequenceNumber(1);
-        
+
         Assert::isInstanceOf($this->shipment, ShipmentInterface::class, '$shipment must be set before expedition creation.');
 
         // get bundle config value for weightUnit
-        $weight = $this->shipment->getShippingWeight()/1000;
+        $weight = $this->shipment->getShippingWeight() / 1000;
 
         if ($this->weightUnit === 'g') {
             $weight = $weight / 1000;
         }
 
-        $parcelRequest->setWeight(sprintf("%.3f", $weight));
+        $parcelRequest->setWeight(sprintf('%.3f', $weight));
 
         return $parcelRequest;
     }
@@ -133,8 +130,7 @@ class Client implements ClientInterface
     {
         foreach ($addresses as $address) {
             Assert::isInstanceOf($address, Address::class);
-            if (false === $this->tntClient->checkZipcodeCityMatch($address->getZipCode(), $address->getCity()))
-            {
+            if (false === $this->tntClient->checkZipcodeCityMatch($address->getZipCode(), $address->getCity())) {
                 throw new InvalidPairZipcodeCityException($address->getZipCode(), $address->getCity());
             }
         }
@@ -153,7 +149,6 @@ class Client implements ClientInterface
         $expeditionRequest->setLabelFormat($this->shippingGateway->getConfigValue('label_format'));
 
         return $expeditionRequest;
-        
     }
 
     /** Must be improved **/

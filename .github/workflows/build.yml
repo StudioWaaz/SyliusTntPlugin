@@ -169,6 +169,10 @@ jobs:
                 run: vendor/bin/psalm
 
             -
+                name: Run ECS
+                run: vendor/bin/ecs check src
+
+            -
                 name: Run PHPSpec
                 run: vendor/bin/phpspec run --ansi -f progress --no-interaction
 
