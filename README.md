@@ -10,11 +10,17 @@
 
 Testing commands 
 APP_ENV=test symfony php vendor/bin/behat
-- [ ] translations
-- [ ] rename plugin and namespace (export only)
-- [ ] force zipcode city to be paired on front
+- [x] translations
+- [ ] renaming cancel
+
+
 - [ ] label format
 - [ ] dropoff stuff
+- [ ] configuration default values
+- [ ] configuration for using g/kg (g by default)
+- [ ] data-tnt-select-classes
+- [x] behat js
+- [ ] complete phpspec
 
 ## Documentation
 
@@ -118,3 +124,10 @@ To be able to setup a plugin's database, remember to configure you database cred
     (cd tests/Application && APP_ENV=dev bin/console sylius:fixtures:load)
     (cd tests/Application && APP_ENV=dev bin/console server:run -d public)
     ```
+
+
+Install steps : 
+config plugin
+routing => 
+config => 
+sylius.form.type.checkout_address.validation_groups: ['sylius', 'tnt_address']

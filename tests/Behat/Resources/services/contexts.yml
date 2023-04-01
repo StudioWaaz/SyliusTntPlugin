@@ -23,3 +23,9 @@ services:
         arguments:
             - '@bitbag.behat.page.admin.shipping_export.index'
             - '@waaz.tnt_plugin.behat.mocker.tnt_api_mocker'
+
+    waaz.tnt_plugin.behat.context.ui.shop.shipping_address:
+        class: Tests\Waaz\SyliusTntPlugin\Behat\Context\Ui\Shop\ShippingAddressContext
+        public: true
+        arguments:
+            - '@sylius.behat.page.shop.checkout.address'

@@ -1,4 +1,10 @@
 services:
+    waaz.tnt_plugin.action.city_choices_by_zip_code:
+        class: Waaz\SyliusTntPlugin\Action\CityChoicesByZipCodeAction
+        arguments:
+            - '@winzou.tnt.client'
+        tags: ['controller.service_arguments']
+
     waaz.tnt_plugin.form.type.tnt_shipping_gateway:
         class: Waaz\SyliusTntPlugin\Form\Type\ShippingGatewayType
         tags:
@@ -22,3 +28,40 @@ services:
 
     waaz.tnt_plugin.api.client:
         class: Waaz\SyliusTntPlugin\Api\Client
+        arguments:
+            - '@winzou.tnt.client'
+
+    winzou.tnt.soap_client_builder:
+        class: TNTExpress\Client\SoapClientBuilder
+        arguments:
+            - '%waaz_sylius_tnt_plugin.username%'
+            - '%waaz_sylius_tnt_plugin.password%'
+
+    winzou.tnt.soap_client:
+        class: SoapClient
+        factory: ['@winzou.tnt.soap_client_builder', 'createClient']
+        arguments: 
+            - '%waaz_sylius_tnt_plugin.sandbox%'
+
+    winzou.tnt.exception_manager:
+        class: TNTExpress\Exception\ExceptionManager
+    
+    winzou.tnt.client:
+        class: TNTExpress\Client\TNTClient
+        arguments:
+            - '@winzou.tnt.soap_client'
+            - '@winzou.tnt.exception_manager'
+    
+    waaz.tnt_plugin.form.address.extension:
+        class: Waaz\SyliusTntPlugin\Form\Extension\AddressTntExtension
+        arguments:
+            - '@router'
+        tags:
+            - { name: 'form.type_extension' }
+    
+    waaz.tnt_plugin.validator.city_postcode_match:
+        class: Waaz\SyliusTntPlugin\Validator\TntCityPostcodeMatchValidator
+        arguments:
+            - '@winzou.tnt.client'
+        tags:
+            - { name: 'validator.constraint_validator', alias: 'TntCityPostMatchConstraint' }

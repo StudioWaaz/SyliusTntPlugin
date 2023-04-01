@@ -1,5 +1,0 @@
-services:
-    waaz.tnt_plugin.form.type.tnt_shipping_gateway:
-        class: Waaz\SyliusTntPlugin\Form\Type\ShippingGatewayType
-        tags:
-            - { name: bitbag.shipping_gateway_configuration_type, type: 'tnt', label: "TNT" }

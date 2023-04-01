@@ -12,13 +12,14 @@ declare(strict_types=1);
 
 namespace Waaz\SyliusTntPlugin\EventListener;
 
+use Webmozart\Assert\Assert;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Filesystem\Filesystem;
+use Sylius\Component\Core\Model\ShipmentInterface;
 use Waaz\SyliusTntPlugin\Api\ShippingLabelFetcherInterface;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingExportInterface;
 use BitBag\SyliusShippingExportPlugin\Repository\ShippingExportRepository;
-use Doctrine\Persistence\ObjectManager;
-use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
-use Symfony\Component\Filesystem\Filesystem;
-use Webmozart\Assert\Assert;
 
 class ShippingExportEventListener
 {
@@ -34,7 +35,6 @@ class ShippingExportEventListener
 
     public function exportShipment(ResourceControllerEvent $event): void
     {
-        /** @var ShippingExportInterface $shippingExport */
         $shippingExport = $event->getSubject();
         Assert::isInstanceOf($shippingExport, ShippingExportInterface::class);
 
@@ -46,13 +46,13 @@ class ShippingExportEventListener
         }
 
         $shipment = $shippingExport->getShipment();
+        Assert::isInstanceOf($shipment, ShipmentInterface::class);
 
         $this->shippingLabelFetcher->createShipment($shippingGateway, $shipment);
 
         $labelContent = $this->shippingLabelFetcher->getLabelContent();
-        if (empty($labelContent)) {
-            return;
-        }
+        Assert::stringNotEmpty($labelContent);
+
         $this->saveShippingLabel($shippingExport, $labelContent, 'pdf'); // Save label
         $this->markShipmentAsExported($shippingExport); // Mark shipment as "Exported"
     }
@@ -80,8 +80,10 @@ class ShippingExportEventListener
         $order = $shipment->getOrder();
         Assert::notNull($order);
 
+        /** @var string */
         $orderNumber = $order->getNumber();
 
+        /** @var int */
         $shipmentId = $shipment->getId();
 
         return implode(

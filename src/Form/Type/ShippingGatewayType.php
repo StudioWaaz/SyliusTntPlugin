@@ -15,18 +15,6 @@ final class ShippingGatewayType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('login', TextType::class, [
-                'label' => 'waaz.ui.tnt_login',
-                'constraints' => [
-                    new NotBlank()
-                ]
-            ])
-            ->add('password', TextType::class, [
-                'label' => 'waaz.ui.tnt_password',
-                'constraints' => [
-                    new NotBlank()
-                ]
-            ])
             ->add('account_number', TextType::class, [
                 'label' => 'waaz.ui.tnt_account_number',
                 'constraints' => [

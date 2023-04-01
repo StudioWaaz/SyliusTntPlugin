@@ -11,3 +11,7 @@
 /behat.yml
 /phpspec.yml
 /phpunit.xml
+/.php-version
+Makefile
+php.ini
+/.vscode
