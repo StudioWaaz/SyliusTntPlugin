@@ -42,6 +42,9 @@ final class Configuration implements ConfigurationInterface
                     ->values(['kg', 'g'])
                     ->defaultValue('g')
                 ->end()
+                ->scalarNode('citySelectClasses')
+                    ->defaultValue('form-control')
+                ->end()
             ->end()
         ;
     }

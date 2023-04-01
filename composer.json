@@ -4,7 +4,11 @@
     "description": "This TNT plugin enables you to easily print shipping labels and show available pickup locations for customers to choose from.",
     "keywords": [
         "sylius",
-        "sylius-plugin"
+        "sylius-plugin",
+        "tnt",
+        "shipping",
+        "labels",
+        "pickup"
     ],
     "license": "MIT",
     "require": {

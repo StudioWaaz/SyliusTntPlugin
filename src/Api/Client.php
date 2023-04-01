@@ -150,6 +150,7 @@ class Client implements ClientInterface
         $expeditionRequest->setSender($sender);
         $expeditionRequest->setReceiver($receiver);
         $expeditionRequest->setParcelsRequest([$parcelRequest]);
+        $expeditionRequest->setLabelFormat($this->shippingGateway->getConfigValue('label_format'));
 
         return $expeditionRequest;
         

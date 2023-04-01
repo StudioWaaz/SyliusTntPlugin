@@ -1,134 +1,139 @@
-<p align="center">
-    <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
-    </a>
-</p>
+![Logo](github.png)
 
-<h1 align="center">Plugin Skeleton</h1>
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/StudioWaaz/SyliusTntPlugin/build.yml?style=for-the-badge)
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+# WaazSyliusTntPlugin
 
-Testing commands 
-APP_ENV=test symfony php vendor/bin/behat
-- [x] translations
-- [x] renaming cancel
+This plugin allows you to generate shipping labels for TNT carrier.
 
 
-- [ ] label format
-- [ ] dropoff stuff
-- [x] configuration default values
-- [x] configuration for using g/kg (g by default)
-- [ ] data-tnt-select-classes
-- [x] behat js
-- [ ] complete phpspec
-- [ ] README
 
-## Documentation
+## Features
 
-For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
-there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
+- Shipping label export
+- Check that the postal code and city match for TNT : for this feature, if the country chosen is 'FR' then the city field becomes a select with city proposals from the tnt webservice
 
-## Quickstart Installation
 
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
-
-2. From the plugin skeleton root directory, run the following commands:
-
-    ```bash
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && APP_ENV=test bin/console assets:install public)
-    
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:database:create)
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:schema:create)
-    ```
-
-To be able to setup a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
-
-## Usage
-
-### Running plugin tests
-
-  - PHPUnit
-
-    ```bash
-    vendor/bin/phpunit
-    ```
-
-  - PHPSpec
-
-    ```bash
-    vendor/bin/phpspec run
-    ```
-
-  - Behat (non-JS scenarios)
-
-    ```bash
-    vendor/bin/behat --strict --tags="~@javascript"
-    ```
-
-  - Behat (JS scenarios)
+## Installation
  
+**Prerequisite**: you must first configure/install the `bitbag/shipping-export-plugin`
+
+Install plugin with composer
+
+```bash
+composer require waaz/sylius-tnt-plugin
+```
+Add plugin dependencies to your `config/bundles.php` file:
+
+```php
+return [
+    ...
+
+    Waaz\SyliusTntPlugin\WaazSyliusTntPlugin::class => ['all' => true],
+];
+```
+
+Add route in your `config/routes/sylius_shop.yaml` file:
+```yaml
+...
+waaz_tnt_shop:
+    resource: "@WaazSyliusTntPlugin/Resources/config/routing/shop_tnt.yaml"
+```
+
+Add parameter validation_groups in your `config/services.yaml` file:
+```yaml
+parameters:
+    ...
+    sylius.form.type.checkout_address.validation_groups: ['sylius', 'tnt_address']
+```
+
+Run assets install command : `bin/console assets:install`
+
+Add plugin asset in `templates/bundles/SyliusShopBundle/_scripts.html.twig` file
+```twig
+{% include '@SyliusUi/_javascripts.html.twig' with {'path': 'assets/shop/js/app.js'} %}
+{% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/waazsyliustntplugin/js/tnt-city.js'} %}
+```
+
+## Configuration
+You can configure this plugin by creating a file `config/packages/waaz_sylius_tnt_plugin`:
+```yml
+waaz_sylius_tnt:
+    username: 'login' # Enter your tnt username here. You should use an environment variable like `%env(TNT_PASSWORD)%`
+    password: 'password' # Same for password
+    sandbox: true  # Sandbox mode
+    weightUnit: 'g' # 'g' or 'kg'. Weight unit you use in your shop
+    citySelectClasses: '' # Classes you want to add to city select field
+
+```
+
+
+    
+## Running Tests
+
+- PHPSpec
+
+```bash
+vendor/bin/phpspec run
+```
+
+- Behat (non-JS scenarios)
+
+```bash
+vendor/bin/behat --strict --tags="~@javascript"
+```
+
+- Behat (JS scenarios)
+
     1. [Install Symfony CLI command](https://symfony.com/download).
- 
+
     2. Start Headless Chrome:
-    
-      ```bash
-      google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1
-      ```
-    
+
+    ```bash
+    google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1
+    ```
+
     3. Install SSL certificates (only once needed) and run test application's webserver on `127.0.0.1:8080`:
-    
-      ```bash
-      symfony server:ca:install
-      APP_ENV=test symfony server:start --port=8080 --dir=tests/Application/public --daemon
-      ```
-    
+
+    ```bash
+    symfony server:ca:install
+    APP_ENV=test symfony server:start --port=8080 --dir=tests/Application/public --daemon
+    ```
+
     4. Run Behat:
+
+    ```bash
+    vendor/bin/behat --strict --tags="@javascript"
+    ```
+
+- Psalm
+
+    ```bash
+    vendor/bin/psalm
+    ```
     
-      ```bash
-      vendor/bin/behat --strict --tags="@javascript"
-      ```
-    
-  - Static Analysis
+- PHPStan
+
+```bash
+vendor/bin/phpstan analyse -c phpstan.neon -l max src/  
+```
+
+- Coding Standard
   
-    - Psalm
-    
-      ```bash
-      vendor/bin/psalm
-      ```
-      
-    - PHPStan
-    
-      ```bash
-      vendor/bin/phpstan analyse -c phpstan.neon -l max src/  
-      ```
+```bash
+vendor/bin/ecs check src
+```
 
-  - Coding Standard
-  
-    ```bash
-    vendor/bin/ecs check src
-    ```
+## Roadmap
 
-### Opening Sylius with your plugin
-
-- Using `test` environment:
-
-    ```bash
-    (cd tests/Application && APP_ENV=test bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=test bin/console server:run -d public)
-    ```
-    
-- Using `dev` environment:
-
-    ```bash
-    (cd tests/Application && APP_ENV=dev bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=dev bin/console server:run -d public)
-    ```
+- Pickup point provider (with [setono/sylius-pickup-point-plugin](https://github.com/Setono/SyliusPickupPointPlugin))
+- Manage pickup point expedition (export shipping)
 
 
-Install steps : 
-config plugin
-routing => 
-config => 
-sylius.form.type.checkout_address.validation_groups: ['sylius', 'tnt_address']
+## Author
+
+- [@ehibes](https://www.github.com/ehibes) for [Studio Waaz](https://www.studiowaaz.com)
+## License
+
+This plugin's source code is completely free and released under the terms of the MIT license.
+
