@@ -14,7 +14,7 @@
     "require": {
         "php": "^8.0",
         "bitbag/shipping-export-plugin": "^2.0",
-        "setono/sylius-pickup-point-plugin": "^1.1",
+        "setono/sylius-pickup-point-plugin": "dev-point-interface",
         "sylius/sylius": "^1.11",
         "winzou/tnt-express": "^1.1.1"
     },
@@ -47,7 +47,8 @@
         "symfony/intl": "^5.4",
         "symfony/web-profiler-bundle": "^5.4",
         "vimeo/psalm": "5.9.0",
-        "polishsymfonycommunity/symfony-mocker-container": "^1.0"
+        "polishsymfonycommunity/symfony-mocker-container": "^1.0",
+        "doctrine/annotations": "^1.13.1"
     },
     "config": {
         "sort-packages": true,
@@ -84,5 +85,11 @@
         "post-create-project-cmd": [
             "php bin/create_node_symlink.php"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/StudioWaaz/SyliusPickupPointPlugin.git"
+        }
+    ]
 }

@@ -29,3 +29,24 @@ services:
         public: true
         arguments:
             - '@sylius.behat.page.shop.checkout.address'
+
+    waaz.tnt_plugin.behat.context.setup.shipping_method:
+        class: Tests\Waaz\SyliusTntPlugin\Behat\Context\Setup\ShippingContext
+        public: true
+        arguments:
+            - '@setono_sylius_pickup_point.registry.provider'
+            - '@sylius.manager.shipping_method'
+
+    waaz.tnt_plugin.behat.context.ui.shop.shipping:
+        class: Tests\Waaz\SyliusTntPlugin\Behat\Context\Ui\Shop\ShippingContext
+        public: true
+        arguments:
+            - '@waaz.tnt_plugin.page.shop.select_shipping'
+            - '@sylius.behat.page.shop.checkout.complete'
+            - '@sylius.behat.shared_storage'
+            - '@sylius.repository.order'
+    
+    waaz.tnt_plugin.page.shop.select_shipping: 
+        class: Tests\Waaz\SyliusTntPlugin\Behat\Page\Shop\ShippingPickup\SelectShippingPage
+        parent: sylius.behat.page.shop.checkout.select_shipping
+        public: false

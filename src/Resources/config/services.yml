@@ -2,7 +2,7 @@ services:
     waaz.tnt_plugin.action.city_choices_by_zip_code:
         class: Waaz\SyliusTntPlugin\Action\CityChoicesByZipCodeAction
         arguments:
-            - '@winzou.tnt.client'
+            - '@waaz.tnt.client'
         tags: ['controller.service_arguments']
 
     waaz.tnt_plugin.form.type.tnt_shipping_gateway:
@@ -29,7 +29,7 @@ services:
     waaz.tnt_plugin.api.client:
         class: Waaz\SyliusTntPlugin\Api\Client
         arguments:
-            - '@winzou.tnt.client'
+            - '@waaz.tnt.client'
             - '%waaz_sylius_tnt_plugin.weightUnit'
 
     winzou.tnt.soap_client_builder:
@@ -47,7 +47,7 @@ services:
     winzou.tnt.exception_manager:
         class: TNTExpress\Exception\ExceptionManager
     
-    winzou.tnt.client:
+    waaz.tnt.client:
         class: TNTExpress\Client\TNTClient
         arguments:
             - '@winzou.tnt.soap_client'
@@ -63,6 +63,13 @@ services:
     waaz.tnt_plugin.validator.city_postcode_match:
         class: Waaz\SyliusTntPlugin\Validator\TntCityPostcodeMatchValidator
         arguments:
-            - '@winzou.tnt.client'
+            - '@waaz.tnt.client'
         tags:
             - { name: 'validator.constraint_validator', alias: 'TntCityPostMatchConstraint' }
+    
+    waaz.tnt_plugin.provider.tnt:
+        class: Waaz\SyliusTntPlugin\Provider\TntProvider
+        arguments:
+            - '@waaz.tnt.client'
+        tags: 
+            - { name: 'setono_sylius_pickup_point.provider', code: tnt, label: 'TNT' }

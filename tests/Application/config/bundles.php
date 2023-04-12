@@ -58,4 +58,5 @@ return [
     Sylius\Calendar\SyliusCalendarBundle::class => ['all' => true],
     BitBag\SyliusShippingExportPlugin\BitBagSyliusShippingExportPlugin::class => ['all' => true],
     Waaz\SyliusTntPlugin\WaazSyliusTntPlugin::class => ['all' => true],
+    Setono\SyliusPickupPointPlugin\SetonoSyliusPickupPointPlugin::class => ['all' => true],
 ];
