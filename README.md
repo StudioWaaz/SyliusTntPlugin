@@ -1,7 +1,7 @@
 ![Logo](github.png)
 
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/StudioWaaz/SyliusTntPlugin/build.yml?style=for-the-badge)
-
+![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/StudioWaaz/SyliusTnTPlugin?style=for-the-badge)
 # WaazSyliusTntPlugin
 
 This plugin allows you to generate shipping labels for TNT carrier.
@@ -14,8 +14,8 @@ This plugin allows you to generate shipping labels for TNT carrier.
 - Check that the postal code and city match for TNT : for this feature, if the country chosen is 'FR' then the city field becomes a select with city proposals from the tnt webservice
 
 
-## Installation
- 
+## Installation (*exporting label part*)
+
 **Prerequisite**: you must first configure/install the `bitbag/shipping-export-plugin`
 
 Install plugin with composer
@@ -67,6 +67,9 @@ waaz_sylius_tnt:
 
 ```
 
+## Installation (*pickup point part*)
+
+**Prerequisite**: you must first configure/install the `setono/sylius-pickup-point-plugin`
 
     
 ## Running Tests
@@ -126,7 +129,8 @@ vendor/bin/ecs check src
 
 ## Roadmap
 
-- Pickup point provider (with [setono/sylius-pickup-point-plugin](https://github.com/Setono/SyliusPickupPointPlugin))
+- Pickup point provider (with [setono/sylius-pickup-point-plugin](https://github.com/Setono/SyliusPickupPointPlugin)) 
+- Add classes on city select (citySelectClasses configuration)
 - Manage pickup point expedition (export shipping)
 
 
