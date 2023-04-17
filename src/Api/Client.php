@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Waaz\SyliusTntPlugin\Api;
 
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
+use Setono\SyliusPickupPointPlugin\Model\ShipmentInterface as SetonoShipmentInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -18,6 +19,7 @@ use TNTExpress\Model\ParcelRequest;
 use TNTExpress\Model\Receiver;
 use TNTExpress\Model\Sender;
 use TNTExpress\Model\Service;
+use Waaz\SyliusTntPlugin\Model\TntPickupPointCode;
 use Webmozart\Assert\Assert;
 
 class Client implements ClientInterface
@@ -93,16 +95,28 @@ class Client implements ClientInterface
         /** @var CustomerInterface $customer */
         $customer = $order->getCustomer();
 
-        $receiver->setContactFirstName($address->getFirstName())
-            ->setContactLastName($address->getLastName())
-            ->setPhoneNumber($address->getPhoneNumber())
-            ->setName($address->getCompany())
-            ->setAddress1($address->getStreet())
-            ->setCity($address->getCity())
-            ->setZipCode($address->getPostcode())
-            ->setType($this->shippingGateway->getConfigValue('receiver_type'))
+        $receiver->setPhoneNumber($address->getPhoneNumber())
             ->setEmailAddress($customer->getEmail())
         ;
+
+        // Check if $this->shipment implements SetonoShipmentInterface
+        if ($this->shipment instanceof SetonoShipmentInterface && $this->shipment->hasPickupPointId()) {
+            /** @var string $pointId */
+            $pointId = $this->shipment->getPickupPointId();
+            $tntCode = TntPickupPointCode::createFromString($pointId);
+            $receiver->setType('DROPOFFPOINT')
+                ->setTypeId($tntCode->getIdPart())
+            ;
+        } else {
+            $receiver->setContactFirstName($address->getFirstName())
+                ->setContactLastName($address->getLastName())
+                ->setName($address->getCompany())
+                ->setAddress1($address->getStreet())
+                ->setCity($address->getCity())
+                ->setZipCode($address->getPostcode())
+                ->setType($this->shippingGateway->getConfigValue('receiver_type'))
+            ;
+        }
 
         return $receiver;
     }

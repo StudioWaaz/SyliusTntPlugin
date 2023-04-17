@@ -129,9 +129,9 @@ vendor/bin/ecs check src
 
 ## Roadmap
 
-- Pickup point provider (with [setono/sylius-pickup-point-plugin](https://github.com/Setono/SyliusPickupPointPlugin)) 
+[x] Pickup point provider (with [setono/sylius-pickup-point-plugin](https://github.com/Setono/SyliusPickupPointPlugin)) 
 - Add classes on city select (citySelectClasses configuration)
-- Manage pickup point expedition (export shipping)
+[x] Manage pickup point expedition (export shipping)
 
 
 ## Author
