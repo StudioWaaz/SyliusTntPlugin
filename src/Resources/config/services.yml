@@ -30,7 +30,7 @@ services:
         class: Waaz\SyliusTntPlugin\Api\Client
         arguments:
             - '@waaz.tnt.client'
-            - '%waaz_sylius_tnt_plugin.weightUnit'
+            - '%waaz_sylius_tnt_plugin.weight_unit%'
 
     winzou.tnt.soap_client_builder:
         class: TNTExpress\Client\SoapClientBuilder
@@ -57,6 +57,7 @@ services:
         class: Waaz\SyliusTntPlugin\Form\Extension\AddressTntExtension
         arguments:
             - '@router'
+            - '%waaz_sylius_tnt_plugin.city_select_classes%'
         tags:
             - { name: 'form.type_extension' }
     

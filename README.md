@@ -58,12 +58,13 @@ Add plugin asset in `templates/bundles/SyliusShopBundle/_scripts.html.twig` file
 ## Configuration
 You can configure this plugin by creating a file `config/packages/waaz_sylius_tnt_plugin`:
 ```yml
+# Defaults values
 waaz_sylius_tnt:
     username: 'login' # Enter your tnt username here. You should use an environment variable like `%env(TNT_PASSWORD)%`
     password: 'password' # Same for password
     sandbox: true  # Sandbox mode
-    weightUnit: 'g' # 'g' or 'kg'. Weight unit you use in your shop
-    citySelectClasses: '' # Classes you want to add to city select field
+    weight_unit: 'g' # 'g' or 'kg'. Weight unit you use in your shop
+    city_select_classes: 'ui dropdown' # Classes you want for city select field
 
 ```
 
@@ -126,13 +127,6 @@ vendor/bin/phpstan analyse -c phpstan.neon -l max src/
 ```bash
 vendor/bin/ecs check src
 ```
-
-## Roadmap
-
-[x] Pickup point provider (with [setono/sylius-pickup-point-plugin](https://github.com/Setono/SyliusPickupPointPlugin)) 
-- Add classes on city select (citySelectClasses configuration)
-[x] Manage pickup point expedition (export shipping)
-
 
 ## Author
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Waaz\SyliusTntPlugin\Api;
 
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
-use Setono\SyliusPickupPointPlugin\Model\ShipmentInterface as SetonoShipmentInterface;
+use Setono\SyliusPickupPointPlugin\Model\PickupPointAwareInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -99,8 +99,7 @@ class Client implements ClientInterface
             ->setEmailAddress($customer->getEmail())
         ;
 
-        // Check if $this->shipment implements SetonoShipmentInterface
-        if ($this->shipment instanceof SetonoShipmentInterface && $this->shipment->hasPickupPointId()) {
+        if ($this->shipment instanceof PickupPointAwareInterface && $this->shipment->hasPickupPointId()) {
             /** @var string $pointId */
             $pointId = $this->shipment->getPickupPointId();
             $tntCode = TntPickupPointCode::createFromString($pointId);

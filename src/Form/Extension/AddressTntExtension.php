@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class AddressTntExtension extends AbstractTypeExtension
 {
-    public function __construct(private RouterInterface $router)
+    public function __construct(private RouterInterface $router, private string $selectClasses)
     {
     }
 
@@ -24,7 +24,7 @@ final class AddressTntExtension extends AbstractTypeExtension
                 'label' => 'sylius.form.address.city',
                 'attr' => [
                     'data-tnt-url' => $this->router->generate('waaz_tnt_plugin_city_choices_by_zip_code', ['postcode' => 'xxxxx']),
-                    'data-tnt-select-classes' => 'ui dropdown',
+                    'data-tnt-select-classes' => $this->selectClasses,
                 ],
             ])
             ->add('phoneNumber', TextType::class, [
