@@ -47,9 +47,10 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
 
     public function getLabelContent(): ?string
     {
-        $this->flashBag->add('success', 'bitbag.ui.shipment_data_has_been_exported'); // Add success notification
-        Assert::isInstanceOf($this->response, Expedition::class);
+        $this->flashBag->add('success', 'bitbag.ui.shipment_data_has_been_exported');
+        $response = $this->response;
+        Assert::isInstanceOf($response, Expedition::class);
 
-        return $this->response->getPDFLabels();
+        return $response->getPDFLabels();
     }
 }

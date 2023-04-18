@@ -47,11 +47,11 @@ class Client implements ClientInterface
     public function createExpedition(): Expedition
     {
         $shippingGateway = $this->shippingGateway;
-        Assert::notNull($shippingGateway, '$shippingGateway must be set before expedition creation.');
+        Assert::isInstanceOf($shippingGateway, ShippingGatewayInterface::class, '$shippingGateway must be set before expedition creation.');
         $sender = $this->senderFactory->createNew($shippingGateway);
 
         $shipment = $this->shipment;
-        Assert::notNull($shipment, '$shipment must be set before expedition creation.');
+        Assert::isInstanceOf($shipment, ShipmentInterface::class, '$shipment must be set before expedition creation.');
         $receiver = $this->receiverFactory->createNew($shippingGateway, $shipment);
         $this->verifyAddresses([$receiver]);
 
