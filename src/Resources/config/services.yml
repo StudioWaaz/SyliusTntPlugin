@@ -31,6 +31,10 @@ services:
         arguments:
             - '@waaz.tnt.client'
             - '%waaz_sylius_tnt_plugin.weight_unit%'
+            - '@waaz.tnt_plugin.factory.sender'
+            - '@waaz.tnt_plugin.factory.receiver'
+            - '@waaz.tnt_plugin.factory.parcel_request'
+            - '@waaz.tnt_plugin.factory.expedition_request'
 
     winzou.tnt.soap_client_builder:
         class: TNTExpress\Client\SoapClientBuilder
@@ -74,3 +78,15 @@ services:
             - '@waaz.tnt.client'
         tags: 
             - { name: 'setono_sylius_pickup_point.provider', code: tnt, label: 'TNT' }
+
+    waaz.tnt_plugin.factory.sender:
+        class: Waaz\SyliusTntPlugin\Factory\SenderFactory
+
+    waaz.tnt_plugin.factory.receiver:
+        class: Waaz\SyliusTntPlugin\Factory\ReceiverFactory
+    
+    waaz.tnt_plugin.factory.parcel_request:
+        class: Waaz\SyliusTntPlugin\Factory\ParcelRequestFactory
+
+    waaz.tnt_plugin.factory.expedition_request:
+        class: Waaz\SyliusTntPlugin\Factory\ExpeditionRequestFactory
