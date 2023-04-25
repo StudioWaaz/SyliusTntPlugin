@@ -17,7 +17,7 @@ Feature: Checking postcode and zipcode match
         
         And I added product "PHP T-Shirt" to the cart
 
-    @ui @javascript
+    @ui @javascript @bug
     Scenario: If I choose city, it is saved in the billing address
         Given I am at the checkout addressing step
         And I specify billing first name as "Jon"

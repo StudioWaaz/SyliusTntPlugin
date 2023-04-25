@@ -29,17 +29,15 @@ final class SelectShippingPage extends BaseSelectShippingPage implements SelectS
 
     public function chooseFirstShippingPointFromRadio(): void
     {
-        $expectedFirstOptionValue = 'tnt---02412---FR---64210---BIDART';
-
         Assert::true($this->hasElement('pickup_point_field'));
 
         Assert::true($this->getDocument()->waitFor(15, function () {
             return $this->hasElement('pickup_point_radios');
         }), 'Pickup point radios area not visible');
 
-        $this->getElement('pickup_point_radio_item', [
-            '%value%' => $expectedFirstOptionValue,
-        ])->click();
+        $element = $this->getElement('pickup_point_radio_first_item');
+
+        $element->click();
     }
 
     protected function getDefinedElements(): array
@@ -47,10 +45,7 @@ final class SelectShippingPage extends BaseSelectShippingPage implements SelectS
         return array_merge(parent::getDefinedElements(), [
             'pickup_point_field' => '.setono-sylius-pickup-point-field:not([style*="display: none"])',
             'pickup_point_radios' => '.setono-sylius-pickup-point-field-choices:not([style*="display: none"])',
-
-            // Workaround: Unable to click radio item as semantic ui hide it and we can click only label
-            // 'pickup_point_radio_item' => '.setono-sylius-pickup-point-field-choice-field[value="%value%"]',
-            'pickup_point_radio_item' => '[for="sylius_checkout_select_shipping_shipments_0_pickupPointId_%value%"]',
+            'pickup_point_radio_first_item' => '.setono-sylius-pickup-point-field-choices:not([style*="display: none"]) input[type=radio]:first-child + label'
         ]);
     }
 }

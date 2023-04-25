@@ -78,15 +78,8 @@ class Client implements ClientInterface
     /** Must be improved **/
     private function getFeasibility(ExpeditionRequest $expeditionRequest): Service
     {
-        /** @var array $feasibility */
-        $feasibility = [];
+        $feasibility = $this->tntClient->getFeasibility($expeditionRequest);
 
-        try {
-            $feasibility = $this->tntClient->getFeasibility($expeditionRequest);
-        } catch (\SoapFault $e) {
-        }
-
-        /** @var Service $service */
         $service = $feasibility[0];
 
         return $service;
