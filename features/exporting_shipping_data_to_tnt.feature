@@ -9,13 +9,11 @@ Feature: Managing shipping gateway
         And I am logged in as an administrator
         And the store has "TNT" shipping method with "$10.00" fee
         And there is a registered "tnt" shipping gateway for this shipping method named "tnt"
-        And it has "login" field set to "mylogin"
-        And it has "password" field set to "mypassord"
         And it has "account_number" field set to "123"
         And it has "sender_name" field set to "Waaz"
         And it has "sender_address1" field set to "Allée d'Aguiléra"
         And it has "sender_address2" field set to "Etage 2"
-        And it has "sender_city" field set to "Biarritz"
+        And it has "sender_city" field set to "BIARRTITZ"
         And it has "sender_zip_code" field set to "64200"
         And it has "sender_phone_number" field set to "0900000000"
         And it has "sender_contact_first_name" field set to "Ibes"
