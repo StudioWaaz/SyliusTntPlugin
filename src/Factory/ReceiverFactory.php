@@ -28,7 +28,13 @@ class ReceiverFactory implements ReceiverFactoryInterface
         /** @var CustomerInterface $customer */
         $customer = $order->getCustomer();
 
-        $receiver->setPhoneNumber($address->getPhoneNumber())
+        $receiver->setContactFirstName($address->getFirstName())
+            ->setContactLastName($address->getLastName())
+            ->setName($address->getCompany())
+            ->setAddress1($address->getStreet())
+            ->setCity($address->getCity())
+            ->setZipCode($address->getPostcode())
+            ->setPhoneNumber($address->getPhoneNumber())
             ->setEmailAddress($customer->getEmail())
         ;
 
@@ -40,14 +46,7 @@ class ReceiverFactory implements ReceiverFactoryInterface
                 ->setTypeId($tntCode->getIdPart())
             ;
         } else {
-            $receiver->setContactFirstName($address->getFirstName())
-                ->setContactLastName($address->getLastName())
-                ->setName($address->getCompany())
-                ->setAddress1($address->getStreet())
-                ->setCity($address->getCity())
-                ->setZipCode($address->getPostcode())
-                ->setType($shippingGateway->getConfigValue('receiver_type'))
-            ;
+            $receiver->setType($shippingGateway->getConfigValue('receiver_type'));
         }
 
         return $receiver;
