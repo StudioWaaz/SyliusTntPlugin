@@ -18,19 +18,19 @@ final class ShippingGatewayType extends AbstractType
             ->add('account_number', TextType::class, [
                 'label' => 'waaz.ui.tnt_account_number',
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank(['groups' => ['bitbag']]),
                 ],
             ])
             ->add('sender_name', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_name',
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank(['groups' => ['bitbag']]),
                 ],
             ])
             ->add('sender_address1', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_address1',
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank(['groups' => ['bitbag']]),
                 ],
             ])
             ->add('sender_address2', TextType::class, [
@@ -40,13 +40,13 @@ final class ShippingGatewayType extends AbstractType
             ->add('sender_city', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_city',
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank(['groups' => ['bitbag']]),
                 ],
             ])
             ->add('sender_zip_code', TextType::class, [
                 'label' => 'waaz.ui.tnt_sender_zip_code',
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank(['groups' => ['bitbag']]),
                 ],
             ])
             ->add('sender_phone_number', TextType::class, [
