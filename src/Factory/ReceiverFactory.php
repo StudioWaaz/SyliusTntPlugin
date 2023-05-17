@@ -6,12 +6,12 @@ namespace Waaz\SyliusTntPlugin\Factory;
 
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointAwareInterface;
+use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use TNTExpress\Model\Receiver;
-use Waaz\SyliusTntPlugin\Model\TntPickupPointCode;
 
 class ReceiverFactory implements ReceiverFactoryInterface
 {
@@ -41,7 +41,7 @@ class ReceiverFactory implements ReceiverFactoryInterface
         if ($shipment instanceof PickupPointAwareInterface && $shipment->hasPickupPointId()) {
             /** @var string $pointId */
             $pointId = $shipment->getPickupPointId();
-            $tntCode = TntPickupPointCode::createFromString($pointId);
+            $tntCode = PickupPointCode::createFromString($pointId);
             $receiver->setType('DROPOFFPOINT')
                 ->setTypeId($tntCode->getIdPart())
             ;

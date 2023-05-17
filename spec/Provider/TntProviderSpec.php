@@ -9,8 +9,8 @@ use TNTExpress\Client\TNTClientInterface;
 use Waaz\SyliusTntPlugin\Provider\TntProvider;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\AddressInterface;
-use Waaz\SyliusTntPlugin\Model\TntPickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
+use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Provider\ProviderInterface;
 
 class TntProviderSpec extends ObjectBehavior
@@ -68,13 +68,11 @@ class TntProviderSpec extends ObjectBehavior
         $client->getDropOffPoints('64200', 'Biarritz')->willReturn([
             $dropOffPoint
         ]);
-        $pickupPointCode = new TntPickupPointCode('test', 'tnt', 'FR');
-        $pickupPointCode->setZipcode('64200');
-        $pickupPointCode->setCity('Biarritz');
+        $pickupPointCode = new PickupPointCode('test###64200###Biarritz', 'tnt', 'FR');
         $point = $this->findPickupPoint($pickupPointCode);
         $point->shouldReturnAnInstanceOf(PickupPoint::class);
-        $point->getCode()->shouldReturnAnInstanceOf(TntPickupPointCode::class);
-        $point->getCode()->getIdPart()->shouldReturn('test');
+        $point->getCode()->shouldReturnAnInstanceOf(PickupPointCode::class);
+        $point->getCode()->getIdPart()->shouldReturn('test###64200###Biarritz');
         $point->getCode()->getProviderPart()->shouldReturn('tnt');
         $point->getCode()->getCountryPart()->shouldReturn('FR');
     }

@@ -30,13 +30,13 @@ class AddressPage extends BaseAddressPage {
     
     public function getAvailableBillingCities(): array
     {
-        $this->waitForOption(3, 'billing_city_select');
+        $this->waitForOption(5, 'billing_city_select');
         return $this->getOptionsFromSelect($this->getElement('billing_city_select'));
     }
 
     public function selectBillingCity(string $city): void
     {
-        $this->waitForOption(3, 'billing_city_select');
+        $this->waitForOption(5, 'billing_city_select');
         $this->getElement('billing_city_select')->selectOption($city);
     }
 

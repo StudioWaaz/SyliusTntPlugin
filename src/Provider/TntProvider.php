@@ -6,14 +6,13 @@ namespace Waaz\SyliusTntPlugin\Provider;
 
 use Setono\SyliusPickupPointPlugin\Exception\TimeoutException;
 use Setono\SyliusPickupPointPlugin\Model\PickupPoint;
-use Setono\SyliusPickupPointPlugin\Model\PickupPointCodeInterface;
+use Setono\SyliusPickupPointPlugin\Model\PickupPointCode;
 use Setono\SyliusPickupPointPlugin\Model\PickupPointInterface;
 use Setono\SyliusPickupPointPlugin\Provider\Provider;
 use Sylius\Component\Core\Model\OrderInterface;
 use TNTExpress\Client\TNTClientInterface;
 use TNTExpress\Exception\ClientException;
 use TNTExpress\Model\DropOffPoint;
-use Waaz\SyliusTntPlugin\Model\TntPickupPointCode;
 use Webmozart\Assert\Assert;
 
 final class TntProvider extends Provider
@@ -47,20 +46,17 @@ final class TntProvider extends Provider
         }
     }
 
-    public function findPickupPoint(PickupPointCodeInterface $code): ?PickupPointInterface
+    public function findPickupPoint(PickupPointCode $code): ?PickupPointInterface
     {
-        Assert::isInstanceOf($code, TntPickupPointCode::class);
-
-        $zipcode = $code->getZipCodePart();
-        Assert::string($zipcode);
-
-        $city = $code->getCityPart();
-        Assert::string($city);
+        $pickupId = $code->getIdPart();
+        $data = \explode('###', $pickupId);
+        Assert::count($data, 3, 'TNT Pickup ID is not correct.');
+        [$xettCode, $zipcode, $city] = $data;
 
         $result = $this->client->getDropOffPoints($zipcode, $city);
 
         foreach ($result as $item) {
-            if ($item->getXETTCode() === $code->getIdPart()) {
+            if ($item->getXETTCode() === $xettCode) {
                 return $this->transform($item);
             }
         }
@@ -78,10 +74,14 @@ final class TntProvider extends Provider
         $countryCode = 'FR'; // TNT only operates in France
 
         $pickupPoint = new PickupPoint();
+        $zipcode = $dropOffPoint->getZipCode();
+        Assert::notNull($zipcode);
 
-        $pickupPointCode = new TntPickupPointCode($dropOffPoint->getXETTCode(), $this->getCode(), $countryCode);
-        $pickupPointCode->setZipcode((string) $dropOffPoint->getZipCode());
-        $pickupPointCode->setCity((string) $dropOffPoint->getCity());
+        $city = $dropOffPoint->getCity();
+        Assert::notNull($city);
+
+        $pickupId = (string) $dropOffPoint->getXETTCode() . '###' . $zipcode . '###' . $city;
+        $pickupPointCode = new PickupPointCode($pickupId, $this->getCode(), $countryCode);
 
         $pickupPoint->setCode($pickupPointCode);
         $pickupPoint->setName((string) $dropOffPoint->getName());

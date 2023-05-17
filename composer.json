@@ -14,7 +14,7 @@
     "require": {
         "php": "^8.0",
         "bitbag/shipping-export-plugin": "^3.0",
-        "setono/sylius-pickup-point-plugin": "dev-point-interface",
+        "setono/sylius-pickup-point-plugin": "^1.1",
         "sylius/sylius": "^1.11",
         "winzou/tnt-express": "^1.1.1"
     },
@@ -85,11 +85,5 @@
         "post-create-project-cmd": [
             "php bin/create_node_symlink.php"
         ]
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/StudioWaaz/SyliusPickupPointPlugin.git"
-        }
-    ]
+    }
 }
