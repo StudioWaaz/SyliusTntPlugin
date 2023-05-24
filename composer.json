@@ -66,11 +66,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Waaz\\SyliusTntPlugin\\": "src/",
-            "Tests\\Waaz\\SyliusTntPlugin\\": "tests/"
+            "Waaz\\SyliusTntPlugin\\": "src/"
         }
     },
     "autoload-dev": {
+        "psr-4": {
+            "Tests\\Waaz\\SyliusTntPlugin\\": "tests/",
+            "Tests\\Waaz\\SyliusTntPlugin\\Application\\": "tests/Application/src/"
+        },
         "classmap": [
             "tests/Application/Kernel.php"
         ]
