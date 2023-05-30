@@ -13,7 +13,7 @@ services:
     waaz.tnt_plugin.api.shipping_label_fetcher:
         class: Waaz\SyliusTntPlugin\Api\ShippingLabelFetcher
         arguments:
-            - '@session.flash_bag'
+            - '@request_stack'
             - '@waaz.tnt_plugin.api.client'
 
     waaz.tnt_plugin.event_listener.tnt_shipping_export:

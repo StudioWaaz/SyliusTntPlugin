@@ -7,6 +7,7 @@ namespace Waaz\SyliusTntPlugin\Api;
 use BitBag\SyliusShippingExportPlugin\Entity\ShippingGatewayInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Order\Model\OrderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use TNTExpress\Model\Expedition;
 use Webmozart\Assert\Assert;
@@ -16,7 +17,7 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
     private ?Expedition $response = null;
 
     public function __construct(
-        private FlashBagInterface $flashBag,
+        private RequestStack $requestStack,
         private Client $client,
     ) {
     }
@@ -34,7 +35,11 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
             /** @var string $number */
             $number = $order->getNumber();
 
-            $this->flashBag->add(
+            $session = $this->requestStack->getSession();
+            $flashBag = $session->getBag('flashes');
+            Assert::isInstanceOf($flashBag, FlashBagInterface::class);
+
+            $flashBag->add(
                 'error',
                 sprintf(
                     'TNT Service for #%s order: %s',
@@ -47,7 +52,12 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
 
     public function getLabelContent(): ?string
     {
-        $this->flashBag->add('success', 'bitbag.ui.shipment_data_has_been_exported');
+        $session = $this->requestStack->getSession();
+        $flashBag = $session->getBag('flashes');
+        Assert::isInstanceOf($flashBag, FlashBagInterface::class);
+
+        $flashBag->add('success', 'bitbag.ui.shipment_data_has_been_exported');
+
         $response = $this->response;
         Assert::isInstanceOf($response, Expedition::class);
 
