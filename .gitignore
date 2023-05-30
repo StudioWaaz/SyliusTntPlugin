@@ -15,3 +15,6 @@
 Makefile
 php.ini
 /.vscode
+.yarnrc.yml
+/tests/Application/.yarn/
+/tests/Application/public/build/
