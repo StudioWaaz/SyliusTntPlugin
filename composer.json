@@ -16,7 +16,7 @@
         "bitbag/shipping-export-plugin": "^3.0",
         "nyholm/psr7": "^1.8",
         "setono/sylius-pickup-point-plugin": "^1.1",
-        "sylius/sylius": "1.11.*",
+        "sylius/sylius": "1.12.*",
         "winzou/tnt-express": "^1.1.1"
     },
     "require-dev": {
