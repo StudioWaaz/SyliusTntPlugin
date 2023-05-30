@@ -200,7 +200,7 @@ jobs:
 
             -
                 name: Upload Behat logs
-                uses: codecov/codecov-action@v3
+                uses: actions/upload-artifact@v3
                 if: failure()
                 with:
                     name: Behat logs
