@@ -40,7 +40,7 @@ final class ShippingContext implements Context
     }
 
     /**
-     * @Given I choose the first option
+     * @Then I choose the first option
      */
     public function iChooseTheFirstOption(): void
     {

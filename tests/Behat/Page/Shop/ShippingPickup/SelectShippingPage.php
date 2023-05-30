@@ -45,7 +45,7 @@ final class SelectShippingPage extends BaseSelectShippingPage implements SelectS
         return array_merge(parent::getDefinedElements(), [
             'pickup_point_field' => '.setono-sylius-pickup-point-field:not([style*="display: none"])',
             'pickup_point_radios' => '.setono-sylius-pickup-point-field-choices:not([style*="display: none"])',
-            'pickup_point_radio_first_item' => '.setono-sylius-pickup-point-field-choices:not([style*="display: none"]) input[type=radio]:first-child + label'
+            'pickup_point_radio_first_item' => '.setono-sylius-pickup-point-field-choices:not([style*="display: none"]) input[type=radio]:first-child'
         ]);
     }
 }
