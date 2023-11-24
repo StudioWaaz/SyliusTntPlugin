@@ -12,6 +12,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use TNTExpress\Model\Receiver;
+use Webmozart\Assert\Assert;
 
 class ReceiverFactory implements ReceiverFactoryInterface
 {
@@ -42,8 +43,13 @@ class ReceiverFactory implements ReceiverFactoryInterface
             /** @var string $pointId */
             $pointId = $shipment->getPickupPointId();
             $tntCode = PickupPointCode::createFromString($pointId);
+
+            $splitted = mb_split('###', $tntCode->getIdPart());
+            Assert::isArray($splitted, 'Pickup point code is not valid');
+            Assert::count($splitted, 3, 'Pickup point code is not valid');
+
             $receiver->setType('DROPOFFPOINT')
-                ->setTypeId($tntCode->getIdPart())
+                ->setTypeId($splitted[0])
             ;
         } else {
             $receiver->setType($shippingGateway->getConfigValue('receiver_type'));
