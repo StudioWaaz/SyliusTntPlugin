@@ -51,9 +51,9 @@ final class TntProvider extends Provider
         $pickupId = $code->getIdPart();
         $data = \explode('###', $pickupId);
         Assert::count($data, 3, 'TNT Pickup ID is not correct.');
-        [$xettCode, $zipcode, $city] = $data;
+        [$xettCode, $zipcode] = $data;
 
-        $result = $this->client->getDropOffPoints($zipcode, $city);
+        $result = $this->client->getDropOffPoints($zipcode, null);
 
         foreach ($result as $item) {
             if ($item->getXETTCode() === $xettCode) {

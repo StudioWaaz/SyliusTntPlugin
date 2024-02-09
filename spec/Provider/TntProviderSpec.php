@@ -65,7 +65,7 @@ class TntProviderSpec extends ObjectBehavior
         $dropOffPoint->getLongitude()->willReturn('-1.55');
 
         
-        $client->getDropOffPoints('64200', 'Biarritz')->willReturn([
+        $client->getDropOffPoints('64200', null)->willReturn([
             $dropOffPoint
         ]);
         $pickupPointCode = new PickupPointCode('test###64200###Biarritz', 'tnt', 'FR');
