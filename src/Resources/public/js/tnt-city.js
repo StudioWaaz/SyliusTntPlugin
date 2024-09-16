@@ -53,7 +53,7 @@ const tnt = {
         const country = this.countryElts[key];
         const cityInput = this.cityInputs[key];
         const citySelect = this.citySelects[key];
-        
+
         if (country.value === 'FR') {
             cityInput.style.display = 'none';
             citySelect.style.display = 'block';
@@ -64,7 +64,7 @@ const tnt = {
         }
 
         this.verifyDataAndCreateOptions(key);
-        
+
     },
     generateSelect(key) {
         const cityInput = this.cityInputs[key];
@@ -75,7 +75,7 @@ const tnt = {
         select.addEventListener('change', () => {
             cityInput.value = select.value;
         })
-        
+
         select.className = cityInput.dataset.tntSelectClasses ?? '';
     },
     attachPostcodeListener(key) {
@@ -86,6 +86,17 @@ const tnt = {
     },
     attachCountryListener(key) {
         const countryInput = this.countryElts[key];
+        let previousValue = countryInput.value;
+
+        setInterval(function() {
+            if (countryInput.value !== previousValue) {
+                previousValue = countryInput.value;
+                // You can also manually trigger an event here if necessary
+                countryInput.dispatchEvent(new Event('change'));
+            }
+        }, 500);  // Check every 500 milliseconds
+
+
         countryInput.addEventListener('change',() => {
             this.cityFieldConfiguration(key);
         })
