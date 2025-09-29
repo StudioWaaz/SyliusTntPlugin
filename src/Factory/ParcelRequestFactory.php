@@ -14,7 +14,7 @@ class ParcelRequestFactory implements ParcelRequestFactoryInterface
         $parcelRequest = new ParcelRequest();
         $parcelRequest->setSequenceNumber(1);
 
-        $weight = $shipment->getShippingWeight() / 1000;
+        $weight = $shipment->getShippingWeight();
 
         if ($weightUnit === 'g') {
             $weight = $weight / 1000;
