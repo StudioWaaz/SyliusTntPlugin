@@ -12,7 +12,15 @@ use Symfony\Component\Filesystem\Filesystem;
 use Waaz\SyliusTntPlugin\Api\ShippingLabelFetcherInterface;
 use Webmozart\Assert\Assert;
 
-class ShippingExportEventListener
+/**
+ * This listener overrides the one from waaz/sylius-tnt-plugin to gracefully handle
+ * TNT validation errors: it catches exceptions and avoids asserting on absent labels,
+ * while letting the fetcher add precise flash error messages for the user.
+ */
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+
+#[AsEventListener(event: 'bitbag.shipping_export.export_shipment', method: 'exportShipment')]
+final class ShippingExportEventListener
 {
     public const TNT_GATEWAY_CODE = 'tnt';
 
@@ -39,16 +47,27 @@ class ShippingExportEventListener
         $shipment = $shippingExport->getShipment();
         Assert::isInstanceOf($shipment, ShipmentInterface::class);
 
-        $this->shippingLabelFetcher->createShipment($shippingGateway, $shipment);
+        try {
+            $this->shippingLabelFetcher->createShipment($shippingGateway, $shipment);
+        } catch (\Throwable $e) {
+            return;
+        }
 
-        $labelContent = $this->shippingLabelFetcher->getLabelContent();
-        Assert::stringNotEmpty($labelContent);
+        try {
+            $labelContent = $this->shippingLabelFetcher->getLabelContent();
+        } catch (\Throwable $e) {
+            return;
+        }
 
-        $this->saveShippingLabel($shippingExport, $labelContent, 'pdf'); // Save label
-        $this->markShipmentAsExported($shippingExport); // Mark shipment as "Exported"
+        if (!\is_string($labelContent) || '' === trim($labelContent)) {
+            return;
+        }
+
+        $this->saveShippingLabel($shippingExport, $labelContent, 'pdf');
+        $this->markShipmentAsExported($shippingExport);
     }
 
-    public function saveShippingLabel(
+    private function saveShippingLabel(
         ShippingExportInterface $shippingExport,
         string $labelContent,
         string $labelExtension,
@@ -81,7 +100,7 @@ class ShippingExportEventListener
             '_',
             [
                 $shipmentId,
-                preg_replace('~[^A-Za-z0-9]~', '', $orderNumber),
+                (string) preg_replace('~[^A-Za-z0-9]~', '', $orderNumber),
             ],
         );
     }
